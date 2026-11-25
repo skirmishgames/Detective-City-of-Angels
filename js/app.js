@@ -1,21 +1,21 @@
 // Case Builder app: views, forms and actions.
-import { LOCATIONS, DISTRICTS, MOTIVES } from './data/locations.js';
-import { KIT_ART } from './data/kit.js';
-import { GUIDE } from './guide.js';
+import { LOCATIONS, DISTRICTS, MOTIVES } from './data/locations.js?v=202611251503';
+import { KIT_ART } from './data/kit.js?v=202611251503';
+import { GUIDE } from './guide.js?v=202611251503';
 import {
   LETTERS, CARD_TYPES, MAX_CASE_CARDS, MAX_MYSTERY, newCase, newCard, newSearch, newMystery, newResponse,
   suspects, cardName, letterOf, frameOf, cellResponses, setCell, orderedCell, assignCodes, allResponses,
   searchTitle, searchInstruction, lookLine, locName, locLabel, locRefs, getPath, setPath, wordCount, uid, migrate, sleuthResponse,
-} from './model.js';
-import * as store from './store.js';
+} from './model.js?v=202611251503';
+import * as store from './store.js?v=202611251503';
 import {
   fontsReady, kitThumb, renderCaseCard, renderCaseBack, renderMysteryFront, renderMysteryBack,
   renderSearchFront, renderSearchBack, renderResponseCard, renderBriefing, responseCards,
-} from './render.js';
-import { runChecks, districtsUsed, placeNumbers } from './checks.js';
-import { buildPDF, PARTS } from './print.js';
-import { demoCase } from './data/demo.js';
-import { playView } from './play.js';
+} from './render.js?v=202611251503';
+import { runChecks, districtsUsed, placeNumbers } from './checks.js?v=202611251503';
+import { buildPDF, PARTS } from './print.js?v=202611251503';
+import { demoCase } from './data/demo.js?v=202611251503';
+import { playView } from './play.js?v=202611251503';
 
 const $ = (s, el = document) => el.querySelector(s);
 const $$ = (s, el = document) => [...el.querySelectorAll(s)];

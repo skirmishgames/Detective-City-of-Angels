@@ -1,9 +1,9 @@
 // Design checks based on the Case Design Guide's rules of thumb.
-import { LOCATIONS, DISTRICTS } from './data/locations.js';
+import { LOCATIONS, DISTRICTS } from './data/locations.js?v=202611251503';
 import {
   LETTERS, suspects, cellResponses, allResponses, assignCodes, cardName, letterOf, locRefs, wordCount,
   searchInstruction, locLabel, MAX_CASE_CARDS, MAX_MYSTERY,
-} from './model.js';
+} from './model.js?v=202611251503';
 
 export function districtsUsed(c) {
   const spots = placeNumbers(c);

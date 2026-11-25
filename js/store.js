@@ -1,5 +1,5 @@
 // Browser storage (IndexedDB). Cases are JSON; pictures are Blobs in their own store.
-import { migrate, uid } from './model.js';
+import { migrate, uid } from './model.js?v=202611251503';
 
 const DB = 'dcoa-case-builder';
 let dbp;
