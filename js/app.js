@@ -15,6 +15,7 @@ import {
 import { runChecks, districtsUsed, placeNumbers } from './checks.js';
 import { buildPDF, PARTS } from './print.js';
 import { demoCase } from './data/demo.js';
+import { playView } from './play.js';
 
 const $ = (s, el = document) => el.querySelector(s);
 const $$ = (s, el = document) => [...el.querySelectorAll(s)];
@@ -107,11 +108,12 @@ function imageControls(path, o = {}) {
 // ---------- routing ----------
 function parseHash() {
   const parts = location.hash.replace(/^#\/?/, '').split('/');
-  return { tab: parts[0] || 'guide', sub: parts[1] || '' };
+  return { tab: parts[0] || 'guide', sub: parts[1] || '', rest: parts.slice(1) };
 }
 async function route() {
-  const { tab, sub } = parseHash();
-  state.tab = ['guide', 'files', 'cases', 'build', 'print', 'about'].includes(tab) ? tab : 'guide';
+  const { tab, sub, rest } = parseHash();
+  state.tab = ['guide', 'files', 'play', 'cases', 'build', 'print', 'about'].includes(tab) ? tab : 'guide';
+  state.playParts = rest;
   if (state.tab === 'build' && sub) state.step = STEPS.some(s => s[0] === sub) ? sub : 'story';
   $$('#tabs a').forEach(a => a.classList.toggle('on', a.dataset.tab === state.tab));
   render();
@@ -124,6 +126,7 @@ function render() {
   if (t === 'guide') view.innerHTML = guideView();
   else if (t === 'cases') casesView();
   else if (t === 'files') filesView();
+  else if (t === 'play') playView(view, state.playParts || []);
   else if (t === 'about') view.innerHTML = aboutView();
   else if (!state.c) view.innerHTML = noCaseView();
   else if (t === 'print') view.innerHTML = printView();
@@ -143,7 +146,7 @@ function guideView() {
   return `<div class="hero"><span class="stamp">Case open</span>
     <h1>Write your own case</h1>
     <p>A step-by-step guide to designing a case for <em>Detective: City of Angels</em>, with the tools to write it, lay out every card and print a playable set.</p>
-    <div class="btns"><a class="btn" href="#/build/story">Start building</a><a class="btn ghost" style="color:#f4ecd8;border-color:#f4ecd8" href="#/files">Play a case</a></div>
+    <div class="btns"><a class="btn" href="#/build/story">Start building</a><a class="btn ghost" style="color:#f4ecd8;border-color:#f4ecd8" href="#/play">Play a case</a></div>
   </div>
   <div class="guide-grid">
     <nav class="toc panel" aria-label="Guide contents"><span class="lbl">Contents</span><ol>${GUIDE.map(g => `<li><a href="#/guide/${g.id}">${esc(g.title)}</a></li>`).join('')}</ol></nav>
@@ -168,6 +171,7 @@ async function casesView() {
     <div class="meta">Edited ${new Date(c.updated).toLocaleString('en-CA', { dateStyle: 'medium', timeStyle: 'short' })}</div>
     <div class="btns">
       <button class="btn small" data-act="open" data-id="${c.id}">Open</button>
+      <a class="btn small red" href="#/play/my/${c.id}">Play</a>
       <button class="btn small ghost" data-act="export" data-id="${c.id}">Back up</button>
       <button class="btn small ghost" data-act="dupe" data-id="${c.id}">Duplicate</button>
       <button class="btn small ghost" data-act="del" data-id="${c.id}">Delete</button>
@@ -245,6 +249,7 @@ async function filesView() {
       <p>${esc(x.blurb)}</p>
       ${x.requires ? `<p class="small"><strong>Needs:</strong> <a href="#/files" data-act="libjump" data-slug="${x.requires}">${esc(byslug[x.requires]?.title || x.requires)}</a></p>` : ''}
       ${x.kind === 'original' ? `<div class="btns">
+          <a class="btn small red" href="#/play/lib/${x.slug}">Play</a>
           <button class="btn small" data-act="libpdf" data-slug="${x.slug}">Print set (PDF)</button>
           <button class="btn small ghost spoil" data-act="libdoc" data-doc="grid" data-slug="${x.slug}">Chisel grid</button>
           <button class="btn small ghost spoil" data-act="libdoc" data-doc="epilogue" data-slug="${x.slug}">Epilogue</button>

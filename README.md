@@ -18,6 +18,8 @@ To log a playtest, add an entry to that case's `playtests` list in `cases/index.
 
 When feedback changes the case, raise `version`, add a line to `changes`, and update the case file in `cases/originals/`.
 
+The Play tab runs a case on a tablet or phone with no printing. The device belongs to the Chisel: it shows the briefing, keeps the Case cards on a shared Table view, lets the Chisel pick a response and show only that response to the detective, handles challenges, applies Search card results (flips, taken cards, Mystery cards, archiving) and reveals the solution and epilogue at the end. The board, pawns and tokens still come from the game box. Progress is saved on the device.
+
 My cases holds the cases you write yourself, saved in your browser.
 
 The Guide tab covers the case design process in ten steps, summarised from the official Case Design Guide.

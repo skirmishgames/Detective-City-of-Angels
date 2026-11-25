@@ -2,12 +2,18 @@
 <html lang="en-CA" data-theme="light">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Case Builder for Detective: City of Angels</title>
 <meta name="description" content="Write, lay out and print your own cases for Detective: City of Angels. A fan-made tool built on the official Case Design Kit.">
 <meta name="theme-color" content="#2f3f57">
 <link rel="icon" href="assets/icon.svg" type="image/svg+xml">
-<link rel="stylesheet" href="css/styles.css?v=202611251450">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Case Builder">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="stylesheet" href="css/styles.css?v=202611251456">
 <script>try{const t=localStorage.getItem('dcoa-theme');if(t)document.documentElement.dataset.theme=t;}catch(e){}</script>
 </head>
 <body>
@@ -25,6 +31,7 @@
 <nav class="tabs" id="tabs" aria-label="Sections">
   <a href="#/guide" data-tab="guide">Guide</a>
   <a href="#/files" data-tab="files">Case files</a>
+  <a href="#/play" data-tab="play">Play</a>
   <a href="#/cases" data-tab="cases">My cases</a>
   <a href="#/build" data-tab="build">Build</a>
   <a href="#/print" data-tab="print">Print</a>
@@ -33,7 +40,7 @@
 <main id="view" tabindex="-1"></main>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 <iframe id="printFrame" title="Print frame" aria-hidden="true" tabindex="-1"></iframe>
-<script src="vendor/jspdf.umd.min.js?v=202611251450"></script>
-<script type="module" src="js/app.js?v=202611251450"></script>
+<script src="vendor/jspdf.umd.min.js?v=202611251456"></script>
+<script type="module" src="js/app.js?v=202611251456"></script>
 </body>
 </html>
