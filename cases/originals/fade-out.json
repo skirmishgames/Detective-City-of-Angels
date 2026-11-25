@@ -630,13 +630,15 @@
       "id": "rfo039",
       "kind": "useful",
       "text": "\"Ruby Vale's hand. She lives at the Frostonya Apartment Hotel (32). The studio pays the rent.\"",
-      "look": ""
+      "look": "",
+      "sleuth": true
      },
      {
       "id": "rfo040",
       "kind": "lie",
       "text": "\"A fan letter. Rex got a thousand of them a week.\"",
-      "look": ""
+      "look": "",
+      "sleuth": false
      }
     ],
     "card_J": [

@@ -1,13 +1,13 @@
 // Play a case on a tablet or phone, without printing. The device belongs to the Chisel.
 import {
   LETTERS, CARD_TYPES, suspects, cardName, letterOf, cellResponses, orderedCell, searchTitle, searchInstruction,
-  lookLine, locName, migrate,
+  lookLine, locName, migrate, sleuthResponse,
 } from './model.js';
 import {
   fontsReady, renderCaseCard, renderCaseBack, renderMysteryFront, renderMysteryBack, renderSearchFront,
 } from './render.js';
 import * as store from './store.js';
-import { LOCATIONS } from './data/locations.js';
+import { LOCATIONS, MOTIVES } from './data/locations.js';
 
 const esc = s => String(s ?? '').replace(/[&<>"']/g, ch => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[ch]));
 const $ = (s, el = document) => el.querySelector(s);
@@ -40,9 +40,10 @@ async function loadGame(src, id) {
 }
 function freshState(c) {
   return {
-    caseUpdated: c.updated || 0, stage: 'setup',
+    caseUpdated: c.updated || 0, stage: 'setup', mode: '',
     up: c.cards.filter(k => k.faceUp).map(k => k.id),
     mystery: [], over: {}, searched: [], log: [], ended: false,
+    stress: 0, daysLost: 0, leverage: {}, challenged: [], read: [], guesses: [], outcome: '',
   };
 }
 function save() { try { localStorage.setItem(G.key, JSON.stringify(G.st)); } catch { /* private mode */ } }
@@ -118,25 +119,47 @@ const HOWTO = `<div class="panel howto"><h2>Playing without printing</h2>
     <li><strong>The table.</strong> <em>Table</em> shows every Case card: face up, or face down with its letter. Leave it open in the middle of the table between turns.</li>
     <li><strong>The end.</strong> When the game ends, open <em>End</em>, collect the final guesses, then reveal the solution and read the epilogue.</li>
   </ol>
+  <h3>Sleuth mode: no Chisel</h3>
+  <p>For solo or cooperative play. The device answers for the suspects, following the game's official Sleuth rules.</p>
+  <ol>
+    <li><strong>Question:</strong> pick a suspect and a face-up Case card, tap <em>Ask</em>. Each question has one fixed answer, which may be a lie.</li>
+    <li><strong>Challenge</strong> an answer you doubt. If it was a lie you get the most useful response and 1 leverage over that suspect. If it was true you gain 1 Stress; at 3 Stress the Final Guess marker moves one day up. A challenged question can't be asked again.</li>
+    <li><strong>Leverage:</strong> spend it before asking to see the answer and whether it was the most useful one.</li>
+    <li><strong>Search</strong> works as in Classic mode. Searches are always truthful.</li>
+    <li><strong>Notebook</strong> keeps everything you have read. <strong>Guess</strong> checks your final guess. Up to two overtimes, then the case goes cold.</li>
+    <li>With several players, pass the device to the active player each day.</li>
+  </ol>
   <h3>Tips</h3>
   <ul>
     <li>The game saves on this device as you play. You can close the page and come back.</li>
     <li>On iPad, tap Share, then "Add to Home Screen" for a full-screen app.</li>
     <li>Turn on Guided Access (Settings, Accessibility) if you don't want detectives leaving the shown card.</li>
-    <li>Sleuth (solo) and head-to-head modes are not supported yet. You need a Chisel.</li>
+    <li>Head-to-head mode is not supported.</li>
   </ul></div>`;
 
 // ---------- drawing ----------
 const TABS = [['table', 'Table'], ['ask', 'Ask'], ['search', 'Search'], ['chisel', 'Chisel'], ['end', 'End']];
+const STABS = [['table', 'Table'], ['ask', 'Question'], ['search', 'Search'], ['notes', 'Notebook'], ['guess', 'Guess']];
+const sleuth = () => G.st.mode === 'sleuth';
 function draw() {
   const c = G.c;
   if (G.st.stage === 'setup') return drawSetup();
+  const tabs = sleuth() ? STABS : TABS;
+  if (!tabs.some(([k]) => k === tab)) tab = 'table';
   root.innerHTML = `<div class="play">
-    <div class="playbar"><strong class="pt">${esc(c.title)}</strong>
-      <nav class="ptabs">${TABS.map(([k, l]) => `<button class="${tab === k ? 'on' : ''}" data-pact="tab" data-t="${k}">${l}</button>`).join('')}</nav></div>
-    <div class="pbody">${({ table: tableTab, ask: askTab, search: searchTab, chisel: chiselTab, end: endTab })[tab]()}</div>
+    <div class="playbar"><strong class="pt">${esc(c.title)}</strong> <span class="modetag">${sleuth() ? 'Sleuth mode' : 'With a Chisel'}</span>
+      <nav class="ptabs">${tabs.map(([k, l]) => `<button class="${tab === k ? 'on' : ''}" data-pact="tab" data-t="${k}">${l}</button>`).join('')}</nav></div>
+    ${sleuth() ? sleuthStrip() : ''}
+    <div class="pbody">${({ table: tableTab, ask: sleuth() ? sleuthAskTab : askTab, search: searchTab, chisel: chiselTab, end: endTab, notes: notesTab, guess: guessTab })[tab]()}</div>
   </div>`;
   fillPics();
+}
+function sleuthStrip() {
+  const c = G.c;
+  const lev = Object.entries(G.st.leverage).filter(([, n]) => n > 0);
+  return `<div class="sstrip"><span><strong>Stress</strong> ${[0, 1, 2].map(i => `<i class="dot${i < G.st.stress ? ' on' : ''}"></i>`).join('')}</span>
+    ${G.st.daysLost ? `<span>Final Guess marker moved up <strong>${G.st.daysLost}</strong> day${G.st.daysLost > 1 ? 's' : ''}</span>` : ''}
+    <span><strong>Leverage</strong> ${lev.length ? lev.map(([id, n]) => `${esc(cardName(c, c.cards.find(k => k.id === id)))} x${n}`).join(', ') : 'none'}</span></div>`;
 }
 
 function drawSetup() {
@@ -162,7 +185,20 @@ function drawSetup() {
           ${b.locations?.length ? `<ul>${b.locations.filter(x => x.loc || x.name).map(x => `<li><strong>${esc(x.name || locName(x.loc))}${x.loc ? ` (${x.loc})` : ''}</strong> <em>${esc(x.label || '')}</em></li>`).join('')}</ul>` : ''}</div>
         ${b.special?.trim() ? `<div class="bbox rules"><h3>Special rules</h3>${para(b.special)}</div>` : ''}
       </article>
-      <div class="btns" style="justify-content:center"><button class="btn big" data-pact="start">Start the investigation</button></div>
+      <div class="panel modepick"><h2>How are you playing?</h2>
+        <div class="modes">
+          <button class="modebtn" data-pact="start" data-mode="chisel"><strong>With a Chisel</strong><span>One player is the Chisel and holds this device. They choose which answer each suspect gives. Classic mode, 2 or more players.</span></button>
+          <button class="modebtn" data-pact="start" data-mode="sleuth"><strong>Sleuth mode, no Chisel</strong><span>The device answers for the suspects. Solo or cooperative, passing the device around. Spoiler-free until the end.</span></button>
+        </div>
+        <details class="focus"><summary><strong>Sleuth mode setup</strong></summary><ul>
+          <li>Day marker on Day 12, Final Guess marker on the Final Guess space.</li>
+          <li>Detective board with the Sleuth side up: 4 action cubes, leverage markers, and 3 Stress markers grey side up.</li>
+          <li>You won't need Scratch, Bribe-a-Snitch or Solve tokens, Knowledge markers or Evidence Removed cards.</li>
+          <li>Only four actions: Move, Question, Search Location and Search Suspect.</li>
+          <li>Read the briefing above and follow it. Ignore special rules about Solve tokens, bribes or the Chisel.</li>
+          <li>Start your detective at any police station.</li>
+        </ul></details>
+      </div>
       ${G.st.log.length ? `<p class="small muted" style="text-align:center">A game is already in progress. <button class="btn small ghost" data-pact="resume">Resume it</button></p>` : ''}
     </div></div>`;
 }
@@ -264,6 +300,7 @@ function closeOverlay() {
   if (o) o.className = '';
   document.body.classList.remove('noscroll');
 }
+function noteRead(title, text) { G.st.read.unshift({ t: Date.now(), title, text }); save(); }
 function showResponse(r, banner = '') {
   const c = G.c;
   const s = c.cards.find(k => k.id === ask.s), about = c.cards.find(k => k.id === ask.k);
@@ -280,7 +317,7 @@ function act(el) {
   const a = el.dataset.pact;
   switch (a) {
     case 'tab': tab = el.dataset.t; draw(); window.scrollTo(0, 0); break;
-    case 'start': G.st.stage = 'play'; log('Investigation started.'); save(); tab = 'table'; draw(); break;
+    case 'start': G.st.stage = 'play'; G.st.mode = el.dataset.mode || 'chisel'; log(`Investigation started (${sleuth() ? 'Sleuth mode' : 'with a Chisel'}).`); save(); tab = 'table'; draw(); window.scrollTo(0, 0); break;
     case 'resume': G.st.stage = 'play'; save(); draw(); break;
     case 'briefing': G.st.stage = 'setup'; draw(); window.scrollTo(0, 0); break;
     case 'view': overlay(`<img class="pbig" alt="" data-pic="${el.dataset.picKey}">`); break;
@@ -315,6 +352,9 @@ function act(el) {
       break;
     }
     case 'close': closeOverlay(); draw(); break;
+    case 'sask': sleuthAsk(el.dataset.lev === '1'); break;
+    case 'schallenge': sleuthChallenge(); break;
+    case 'guess': makeGuess(); break;
     case 'searchsus': doSearch(c.search.find(s => s.kind === 'suspect' && s.suspect === el.dataset.id), cardName(c, c.cards.find(k => k.id === el.dataset.id))); break;
     case 'searchloc': { const n = Number($('#pLoc').value); doSearch(c.search.find(s => s.kind === 'location' && Number(s.loc) === n), `(${n}) ${locName(n)}`); break; }
     case 'flip': {
@@ -332,11 +372,129 @@ function act(el) {
   }
 }
 
+// ---------- Sleuth mode ----------
+const cellKey = () => `${ask.s}|${ask.k}`;
+function sleuthAskTab() {
+  const c = G.c;
+  const sus = suspects(c).filter(s => isUp(s.id));
+  if (!sus.length) return '<div class="panel empty">No suspects are face up yet.</div>';
+  if (!sus.some(s => s.id === ask.s)) ask.s = '';
+  let html = `<p class="hint">Question action: pick a suspect, then a face-up Case card. The suspect answers; you decide whether to challenge.</p>
+    <span class="lbl">Suspect</span><div class="chips big">${sus.map(x => `<button class="chip${x.id === ask.s ? ' on' : ''}" data-pact="asks" data-id="${x.id}">${esc(cardName(c, x))}</button>`).join('')}</div>`;
+  if (!ask.s) return html;
+  html += `<span class="lbl">About</span><div class="chips big">${c.cards.filter(k => isUp(k.id)).map(k => `<button class="chip${k.id === ask.k ? ' on' : ''}${G.st.challenged.includes(`${ask.s}|${k.id}`) ? ' done' : ''}" data-pact="askk" data-id="${k.id}">${letterOf(c, k.id)} · ${esc(G.st.over[k.id] ? (c.mystery.find(m => m.id === G.st.over[k.id])?.title || cardName(c, k)) : cardName(c, k))}</button>`).join('')}</div>`;
+  if (!ask.k) return html;
+  if (G.st.challenged.includes(cellKey())) return html + '<div class="panel empty resps">You already challenged this question, so you cannot ask it again.</div>';
+  const lev = G.st.leverage[ask.s] || 0;
+  return html + `<div class="btns resps"><button class="btn big" data-pact="sask">Ask</button>${lev ? '<button class="btn big ghost" data-pact="sask" data-lev="1">Spend leverage and ask</button>' : ''}</div>
+    ${lev ? '<p class="hint">Spending leverage shows the answer and then whether it was the most useful one, with no Stress and no new leverage.</p>' : ''}`;
+}
+function sleuthAsk(useLeverage) {
+  const c = G.c;
+  const s = c.cards.find(k => k.id === ask.s), about = c.cards.find(k => k.id === ask.k);
+  const list = cellResponses(c, ask.s, ask.k);
+  const r = sleuthResponse(list);
+  const title = `${cardName(c, s)} on ${letterOf(c, ask.k)} · ${cardName(c, about)}`;
+  if (!r) { overlay(`<div class="pwho">${esc(title)}</div><div class="pcard-text small">${esc(cardName(c, s))} has nothing to say about that.</div>`); noteRead(title, 'Nothing to say.'); log(`Asked ${title}: nothing to say.`); return; }
+  G.lastShown = { r, s: ask.s, k: ask.k };
+  const look = r.look ? lookLine(c, r.look) : '';
+  noteRead(title, r.text + (look ? ` [${look}]` : ''));
+  if (useLeverage) {
+    G.st.leverage[ask.s] = Math.max(0, (G.st.leverage[ask.s] || 0) - 1);
+    const u = list.find(x => x.kind === 'useful');
+    const truth = r.kind === 'useful' ? 'That was the most useful response.' : 'That was a lie or misdirection.';
+    if (r.kind !== 'useful' && u) noteRead(title + ' (leverage)', u.text);
+    log(`Spent leverage on ${title}.`);
+    save();
+    overlay(`<div class="pwho">${esc(title)}</div><div class="pcard-text">${esc(r.text)}</div>
+      <div class="pbanner">Leverage: ${esc(truth)}</div>
+      ${r.kind !== 'useful' && u ? `<div class="pcard-text">${esc(u.text)}</div>` : ''}
+      ${look ? `<div class="btns" style="justify-content:center"><button class="btn red" data-pact="look" data-look="${esc(r.look)}">${esc(look)}</button></div>` : ''}`);
+    return;
+  }
+  log(`Asked ${title}.`);
+  showResponse(r);
+  $('#pshow .btns:last-child').insertAdjacentHTML('afterbegin', '<button class="btn ghost" data-pact="schallenge">Challenge</button>');
+}
+function sleuthChallenge() {
+  const c = G.c;
+  const { r, s, k } = G.lastShown;
+  const key = `${s}|${k}`;
+  if (!G.st.challenged.includes(key)) G.st.challenged.push(key);
+  const sus = cardName(c, c.cards.find(x => x.id === s));
+  const title = `${sus} on ${letterOf(c, k)} (challenge)`;
+  if (r.kind !== 'useful') {
+    G.st.leverage[s] = (G.st.leverage[s] || 0) + 1;
+    const u = cellResponses(c, s, k).find(x => x.kind === 'useful');
+    if (u) noteRead(title, u.text);
+    log(`Challenged ${sus} on ${letterOf(c, k)}: success, gained leverage.`);
+    save();
+    if (u) showResponse(u, `Challenge succeeded. Gain 1 leverage over ${sus}`);
+    else overlay(`<div class="pbanner">Challenge succeeded. Gain 1 leverage over ${esc(sus)}</div>`);
+    return;
+  }
+  G.st.stress += 1;
+  let extra = '';
+  if (G.st.stress >= 3) { G.st.stress = 0; G.st.daysLost += 1; extra = '<div class="pbanner bad">Third Stress: move the Final Guess marker one space up the Day track. Your Stress resets.</div>'; }
+  noteRead(title, 'Challenge failed: that was the most useful response.');
+  log(`Challenged ${sus} on ${letterOf(c, k)}: failed, gained 1 Stress.`);
+  save();
+  overlay(`<div class="pbanner bad">Challenge failed</div><div class="pcard-text small">${esc(sus)} was telling you the most useful response. Gain 1 Stress.</div>${extra}`);
+}
+function notesTab() {
+  const c = G.c;
+  return `<p class="hint">Everything you have read, newest first. The physical Investigation sheet is still the place for your deductions.</p>
+    <ul class="pread">${G.st.read.map(x => `<li><div class="pk">${esc(x.title)}</div><div class="ptxt">${esc(x.text)}</div></li>`).join('') || '<li class="muted">Nothing read yet.</li>'}</ul>
+    <details class="focus"><summary><strong>Corrections</strong></summary><p class="small">Flip a Case card by hand only if a card instruction was missed.</p>
+      <div class="chips">${c.cards.map((x, i) => isUp(x.id) ? `<span class="chip on">${LETTERS[i]} face up</span>` : `<button class="chip" data-pact="flip" data-id="${x.id}">${LETTERS[i]} flip</button>`).join('')}</div></details>
+    <div class="btns"><button class="btn small ghost" data-pact="briefing">Read the briefing again</button><button class="btn small ghost" data-pact="reset">Start this case over</button></div>`;
+}
+const RATINGS = ['Hard Sleuth', 'Wisehead', 'Palooka'];
+function guessTab() {
+  const c = G.c;
+  const k = id => cardName(c, c.cards.find(x => x.id === id));
+  if (G.st.outcome) {
+    const solved = G.st.outcome === 'solved';
+    return `<div class="panel solution"><h2>${solved ? 'Case closed' : 'The case goes cold'}</h2>
+      <p>${solved ? `Solved on guess ${G.st.guesses.length}. Your rating: <strong>${RATINGS[G.st.guesses.length - 1]}</strong>.` : 'Three wrong guesses. Your rating: <strong>A Sap, Rube, \'n Boob</strong>.'}</p>
+      <dl><dt>Suspect</dt><dd>${esc(k(c.solution.suspect) || '-')}</dd><dt>Weapon</dt><dd>${esc(k(c.solution.weapon) || '-')}</dd><dt>Motive</dt><dd>${esc(c.solution.motives.join(', ') || '-')}</dd></dl></div>
+      <article class="paper epilogue-read"><div class="bkind">Epilogue</div>${para(c.epilogue)}</article>
+      <div class="btns" style="justify-content:center"><a class="btn ghost" href="#/files">Back to the case files</a></div>`;
+  }
+  const n = G.st.guesses.length;
+  const sus = c.cards.filter(x => x.type === 'suspect' && isUp(x.id));
+  const ev = c.cards.filter(x => x.type === 'evidence' && isUp(x.id));
+  return `<div class="panel"><h2>${n ? `Overtime ${n}` : 'Final guess'}</h2>
+    <p>${n ? 'Your last guess was wrong. Place the Day marker on day 3 and return the Final Guess marker to its space: you have three more days. Guess again when the Day marker reaches it.' : 'Make your guess when the Day marker reaches the Final Guess marker.'} ${n ? `Guess ${n + 1} of 3.` : ''}</p>
+    ${G.st.guesses.length ? `<ul class="small muted">${G.st.guesses.map((g, i) => `<li>Guess ${i + 1}: ${esc(k(g.s))}, ${esc(k(g.w))}, ${esc(g.m)}. Wrong.</li>`).join('')}</ul>` : ''}
+    <div class="row">
+      <label class="f"><span>Suspect</span><select id="gS">${sus.map(x => `<option value="${x.id}">${esc(cardName(c, x))}</option>`).join('')}</select></label>
+      <label class="f"><span>Weapon</span><select id="gW">${ev.map(x => `<option value="${x.id}">${letterOf(c, x.id)} · ${esc(cardName(c, x))}</option>`).join('')}</select></label>
+      <label class="f"><span>Motive</span><select id="gM">${MOTIVES.map(m => `<option>${esc(m)}</option>`).join('')}</select></label>
+    </div>
+    <div class="btns"><button class="btn big" data-pact="guess" ${sus.length && ev.length ? '' : 'disabled'}>Make the guess</button></div>
+    <p class="hint">You will only learn whether the whole guess is right, not which part is wrong.</p></div>`;
+}
+function makeGuess() {
+  const c = G.c;
+  const g = { s: $('#gS').value, w: $('#gW').value, m: $('#gM').value };
+  if (!confirm('Lock in this guess?')) return;
+  G.st.guesses.push(g);
+  const right = g.s === c.solution.suspect && g.w === c.solution.weapon && c.solution.motives.includes(g.m);
+  if (right) G.st.outcome = 'solved';
+  else if (G.st.guesses.length >= 3) G.st.outcome = 'cold';
+  log(`Guess ${G.st.guesses.length}: ${right ? 'correct' : 'wrong'}.`);
+  save();
+  if (!right && !G.st.outcome) overlay('<div class="pbanner bad">Not quite</div><div class="pcard-text small">The Captain shakes his head. Something in your guess is wrong. Place the Day marker on day 3 and keep digging.</div>');
+  draw();
+}
+
 function doSearch(s, label) {
   const c = G.c;
   if (!s) {
     overlay(`<div class="pwho">Search: ${esc(label)}</div><div class="pcard-text small">You search carefully, but there is nothing of interest here.</div>`);
     log(`Searched ${label}: nothing.`);
+    noteRead(`Search: ${label}`, 'Nothing of interest.');
     return;
   }
   if (s.archive && G.st.searched.includes(s.id)) {
@@ -345,6 +503,7 @@ function doSearch(s, label) {
   }
   const effects = applySearch(s);
   log(`Searched ${label}${effects.length ? ': ' + effects.join(' ') : '.'}`);
+  noteRead(`Search: ${label}`, s.text + (searchInstruction(G.c, s) ? ` [${searchInstruction(G.c, s)}]` : ''));
   overlay(`<img class="pbig search" alt="" data-pic="search:${s.id}">${effects.length ? `<div class="peffects">${effects.map(e => `<div>${esc(e)}</div>`).join('')}</div>` : ''}`);
 }
 

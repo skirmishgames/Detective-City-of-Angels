@@ -212,3 +212,9 @@ export function setPath(obj, path, val) {
   for (let i = 0; i < ks.length - 1; i++) { if (o[ks[i]] == null) o[ks[i]] = {}; o = o[ks[i]]; }
   o[ks.at(-1)] = val;
 }
+
+// The response a suspect gives in Sleuth mode (no Chisel): the one the author marked,
+// otherwise the first lie, otherwise the most useful response.
+export function sleuthResponse(list) {
+  return list.find(r => r.sleuth) || list.find(r => r.kind !== 'useful') || list.find(r => r.kind === 'useful') || null;
+}

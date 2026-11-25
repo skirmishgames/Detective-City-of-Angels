@@ -5,7 +5,7 @@ import { GUIDE } from './guide.js';
 import {
   LETTERS, CARD_TYPES, MAX_CASE_CARDS, MAX_MYSTERY, newCase, newCard, newSearch, newMystery, newResponse,
   suspects, cardName, letterOf, frameOf, cellResponses, setCell, orderedCell, assignCodes, allResponses,
-  searchTitle, searchInstruction, lookLine, locName, locLabel, locRefs, getPath, setPath, wordCount, uid, migrate,
+  searchTitle, searchInstruction, lookLine, locName, locLabel, locRefs, getPath, setPath, wordCount, uid, migrate, sleuthResponse,
 } from './model.js';
 import * as store from './store.js';
 import {
@@ -393,7 +393,8 @@ function responsesStep() {
     const u = list.filter(r => r.kind === 'useful').length;
     const st = !list.length ? '<span class="muted">Not written</span>' : u === 1 ? '<span style="color:var(--ok)">Has most useful</span>' : u > 1 ? '<span style="color:var(--red)">Two most useful</span>' : '<span style="color:var(--warn)">Needs most useful</span>';
     return `<div class="q" id="q-${k.id}"><div class="qh"><span class="L">${LETTERS[ci]}</span><span class="nm">${esc(cardName(c, k))}</span><span class="muted small">${CARD_TYPES[k.type].label}${k.id === s.id ? ' (themselves)' : ''}</span><span class="st">${st}</span></div><div class="body">
-      ${ordered.map(r => { const idx = list.indexOf(r); const path = `responses.${s.id}.${k.id}.${idx}`; return `<div class="resp ${r.kind === 'useful' ? 'useful' : 'lie'}"><div class="bar"><span class="code">${codes.get(r.id) || ''}</span>
+      ${ordered.map(r => { const idx = list.indexOf(r); const path = `responses.${s.id}.${k.id}.${idx}`; const sl = sleuthResponse(list) === r; return `<div class="resp ${r.kind === 'useful' ? 'useful' : 'lie'}"><div class="bar"><span class="code">${codes.get(r.id) || ''}</span>
+        <button type="button" class="chip sleuthchip${sl ? ' on' : ''}" data-act="sleuth" data-s="${s.id}" data-k="${k.id}" data-r="${r.id}" title="The answer this suspect gives in Sleuth mode, when there is no Chisel">${sl ? (r.sleuth ? 'Sleuth answer' : 'Sleuth answer (default)') : 'Use in Sleuth mode'}</button>
         <span class="seg"><button type="button" class="useful${r.kind === 'useful' ? ' on' : ''}" data-act="kind" data-s="${s.id}" data-k="${k.id}" data-r="${r.id}" data-v="useful">Most useful</button><button type="button" class="lie${r.kind !== 'useful' ? ' on' : ''}" data-act="kind" data-s="${s.id}" data-k="${k.id}" data-r="${r.id}" data-v="lie">Lie / misdirection</button></span>
         <select data-bind="${path}.look" aria-label="Look at a card">${lookOpts.map(([v, l]) => `<option value="${esc(v)}"${v === (r.look || '') ? ' selected' : ''}>${esc(l)}</option>`).join('')}</select>
         <button type="button" class="btn small ghost" data-act="delresp" data-s="${s.id}" data-k="${k.id}" data-r="${r.id}">Delete</button></div>
@@ -405,6 +406,7 @@ function responsesStep() {
   return `<div class="panel folder" data-tab="Chisel grid">
     ${matrix}
     <p class="small">${total} responses written. Rough target: ${est} (Case cards x suspects x 2). ${cards.length} Response card${cards.length === 1 ? '' : 's'}.</p>
+    <p class="small muted">Sleuth answer: the response a suspect gives when the case is played in Sleuth mode, with no Chisel. Unless you pick one, it is the first lie, or the most useful response if there is no lie. Detectives can still challenge it.</p>
     <div>${fCheck('Start each suspect on a new Response card', 'settings.newCardPerSuspect', { rr: 1 })}${fCheck("Show the suspect's portrait on Response cards", 'settings.portraits')}</div>
   </div>
   <div class="panel"><span class="lbl">Questioning</span><div class="chips">${sus.map(x => `<button type="button" class="chip${x.id === s.id ? ' on' : ''}" data-act="pickSus" data-id="${x.id}">${esc(cardName(c, x))}</button>`).join('')}</div>
@@ -826,6 +828,11 @@ const ACTIONS = {
     const r = newResponse(v);
     list.push(r); setCell(state.c, s, k, list); changedStructure();
     setTimeout(() => { const i = list.indexOf(r); $(`[data-bind="responses.${s}.${k}.${i}.text"]`)?.focus(); }, 40);
+  },
+  sleuth(el) {
+    const { s, k, r } = el.dataset;
+    for (const x of cellResponses(state.c, s, k)) x.sleuth = x.id === r;
+    changedStructure();
   },
   kind(el) {
     const { s, k, r, v } = el.dataset;

@@ -20,6 +20,8 @@ When feedback changes the case, raise `version`, add a line to `changes`, and up
 
 The Play tab runs a case on a tablet or phone with no printing. The device belongs to the Chisel: it shows the briefing, keeps the Case cards on a shared Table view, lets the Chisel pick a response and show only that response to the detective, handles challenges, applies Search card results (flips, taken cards, Mystery cards, archiving) and reveals the solution and epilogue at the end. The board, pawns and tokens still come from the game box. Progress is saved on the device.
 
+Play also has Sleuth mode, the game's official no-Chisel rules, for solo or cooperative play. Each question gives one fixed answer: the response the author marked as the Sleuth answer in the builder, otherwise the first lie, otherwise the most useful one. The app handles challenges, Stress, leverage, the rule against re-asking a challenged question, a notebook of everything read, and the final guess with two overtimes and the rulebook's ratings.
+
 My cases holds the cases you write yourself, saved in your browser.
 
 The Guide tab covers the case design process in ten steps, summarised from the official Case Design Guide.
