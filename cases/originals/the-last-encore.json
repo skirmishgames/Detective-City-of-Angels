@@ -1,0 +1,649 @@
+{
+ "app": "dcoa-case-builder",
+ "version": 1,
+ "exported": "2026-11-25T14:31:53.457Z",
+ "case": {
+  "id": "case_lastencore",
+  "schema": 1,
+  "created": 1795617113457,
+  "updated": 1795617113457,
+  "title": "The Last Encore",
+  "caseId": "CB-01",
+  "author": "Ivan & Claude",
+  "difficulty": "Gumshoe",
+  "outline": "- Lenny Vance, trumpet player, is found dead in his room at the Frostonya Apartment Hotel (32). It looks like he swallowed a bottle of sleeping pills.\n- Lenny got his pills from Dr. Harold Pike, who also writes prescriptions for Moretti's people. Lenny found out and blackmailed Pike.\n- Vera Lane is leaving the band for a record deal. Lenny threatened to tell the label about her past. She keeps chloroform for her \"migraines\" and to calm the club girls; it is a red herring.\n- Sal Moretti is owed $2,000 by Lenny and threatened him in front of the band the night before.\n- Pike visited Lenny that night \"to bring more pills\", laced his gin with strychnine, and left the sleeping pills behind to make it look like suicide.\n- Pike took the poison tin back to his office in the Bradbury Building (48).",
+  "notes": "",
+  "solution": {
+   "suspect": "cardz5i9w1ffzl",
+   "weapon": "cardjqe4hnlfzl",
+   "motives": [
+    "To Keep a Secret",
+    "Money/Greed"
+   ]
+  },
+  "alternates": [
+   {
+    "suspect": "cardqastctkfzl",
+    "weapon": "cardjqe4hnlfzl",
+    "motives": [
+     "Mob Related",
+     "Money/Greed"
+    ],
+    "note": "Moretti publicly threatened Lenny over the debt."
+   },
+   {
+    "suspect": "cardosv60lsfzl",
+    "weapon": "cardw0dr1s1fzl",
+    "motives": [
+     "To Keep a Secret",
+     "Revenge"
+    ],
+    "note": "Vera had the most to lose and the chloroform is hers."
+   }
+  ],
+  "questions": [
+   {
+    "text": "How will players find Dr. Pike?",
+    "by": "Vera on Lenny (lie), Moretti on Lenny, search (32)",
+    "done": true
+   },
+   {
+    "text": "How will players learn about the Bradbury Building office (48)?",
+    "by": "Moretti on Pike, search of Pike",
+    "done": true
+   }
+  ],
+  "places": [
+   {
+    "loc": 32,
+    "what": "Crime scene, Lenny's room",
+    "kind": "crime"
+   },
+   {
+    "loc": 26,
+    "what": "Vera Lane",
+    "kind": "suspect"
+   },
+   {
+    "loc": 9,
+    "what": "Sal Moretti",
+    "kind": "suspect"
+   },
+   {
+    "loc": 54,
+    "what": "Dr. Pike",
+    "kind": "suspect"
+   },
+   {
+    "loc": 48,
+    "what": "Pike's office, rat poison",
+    "kind": "evidence"
+   },
+   {
+    "loc": 22,
+    "what": "Red herring",
+    "kind": "herring"
+   }
+  ],
+  "cards": [
+   {
+    "id": "card3lmk92jfzl",
+    "type": "victim",
+    "name": "Lenny \"Sugar\" Vance",
+    "role": "The victim",
+    "text": "Trumpet player at Slapsy Maxie's. Found cold in his hotel room with an empty bottle of **sleeping pills**.",
+    "frame": "",
+    "faceUp": true,
+    "foundAt": 32,
+    "weapon": false,
+    "image": {
+     "src": "kit:Male_Shady",
+     "zoom": 1,
+     "x": 0,
+     "y": 0
+    }
+   },
+   {
+    "id": "cardosv60lsfzl",
+    "type": "suspect",
+    "name": "Vera Lane",
+    "role": "Nightclub singer",
+    "text": "Sings with Lenny's band. Her mascara says she has been crying. Her eyes say she is **calculating**.",
+    "frame": "",
+    "faceUp": true,
+    "foundAt": 26,
+    "weapon": false,
+    "image": {
+     "src": "kit:Female_Singer",
+     "zoom": 1,
+     "x": 0,
+     "y": 0
+    }
+   },
+   {
+    "id": "cardz5i9w1ffzl",
+    "type": "suspect",
+    "name": "Dr. Harold Pike",
+    "role": "Physician",
+    "text": "Pressed suit, steady hands, and a habit of checking his watch while **you** talk.",
+    "frame": "",
+    "faceUp": false,
+    "foundAt": 54,
+    "weapon": false,
+    "image": {
+     "src": "kit:Male_Doctor",
+     "zoom": 1,
+     "x": 0,
+     "y": 0
+    }
+   },
+   {
+    "id": "cardqastctkfzl",
+    "type": "suspect",
+    "name": "Sal Moretti",
+    "role": "Club manager",
+    "text": "Runs the floor at Slapsy Maxie's for people who prefer not to be named. **Not** a patient man.",
+    "frame": "",
+    "faceUp": true,
+    "foundAt": 9,
+    "weapon": false,
+    "image": {
+     "src": "kit:Male_Gangster",
+     "zoom": 1,
+     "x": 0,
+     "y": 0
+    }
+   },
+   {
+    "id": "cardjqe4hnlfzl",
+    "type": "evidence",
+    "name": "Rat poison",
+    "role": "",
+    "text": "A dented tin of strychnine rat poison. Half empty. The lid has been wiped clean.",
+    "frame": "",
+    "faceUp": false,
+    "foundAt": 48,
+    "weapon": true,
+    "image": {
+     "src": "kit:RatPoison",
+     "zoom": 1,
+     "x": 0,
+     "y": 0
+    }
+   },
+   {
+    "id": "cardw0dr1s1fzl",
+    "type": "evidence",
+    "name": "Chloroform",
+    "role": "",
+    "text": "A small brown bottle of chloroform wrapped in a silk handkerchief embroidered \"V\".",
+    "frame": "",
+    "faceUp": false,
+    "foundAt": 26,
+    "weapon": true,
+    "image": {
+     "src": "kit:Chloroform",
+     "zoom": 1,
+     "x": 0,
+     "y": 0
+    }
+   },
+   {
+    "id": "cardx7jdf1gfzl",
+    "type": "info",
+    "name": "Pike blackmail",
+    "role": "",
+    "text": "Lenny was blackmailing Dr. Pike.",
+    "frame": "",
+    "faceUp": false,
+    "foundAt": "",
+    "weapon": false,
+    "image": {
+     "src": "",
+     "zoom": 1,
+     "x": 0,
+     "y": 0
+    }
+   }
+  ],
+  "responses": {
+   "cardosv60lsfzl": {
+    "card3lmk92jfzl": [
+     {
+      "id": "rxl9o57cfzl",
+      "kind": "useful",
+      "text": "\"Lenny could play like an angel and lie like the devil. He had something on half this town, detective.\" She looks away. \"Me included.\"",
+      "look": ""
+     },
+     {
+      "id": "rsxvz8v3fzl",
+      "kind": "lie",
+      "text": "\"He was sick. His doctor kept him on pills just to sleep. Some quack up at L.A. General (54).\" She dabs her eyes.",
+      "look": ""
+     },
+     {
+      "id": "r9cajgy1fzl",
+      "kind": "lie",
+      "text": "\"Ask Sal Moretti what he said to Lenny the night before. In front of the whole band.\"",
+      "look": ""
+     }
+    ],
+    "cardosv60lsfzl": [
+     {
+      "id": "ryiou1wefzl",
+      "kind": "useful",
+      "text": "\"I signed with a record label last week. Lenny didn't take it well. That's not a crime.\"",
+      "look": ""
+     }
+    ],
+    "cardz5i9w1ffzl": [
+     {
+      "id": "r8xl3lgpfzl",
+      "kind": "useful",
+      "text": "\"Pike? Lenny's doctor. Came to the club with a black bag full of something for everybody.\"",
+      "look": ""
+     }
+    ],
+    "cardqastctkfzl": [
+     {
+      "id": "rwa2ag8gfzl",
+      "kind": "useful",
+      "text": "\"Sal is all bark. He wanted his money, and a dead man doesn't pay.\"",
+      "look": ""
+     },
+     {
+      "id": "r9q7f2m6fzl",
+      "kind": "lie",
+      "text": "\"Sal told Lenny he'd end up face down in the Stag & Bull (22) if he didn't pay up.\"",
+      "look": ""
+     }
+    ],
+    "cardjqe4hnlfzl": [
+     {
+      "id": "r9t5ob7ffzl",
+      "kind": "useful",
+      "text": "\"Rat poison? Detective, I sing for a living. I don't even cook.\"",
+      "look": ""
+     }
+    ],
+    "cardw0dr1s1fzl": [
+     {
+      "id": "rp5pbiz3fzl",
+      "kind": "useful",
+      "text": "She goes pale. \"It helps my headaches. A few drops on a handkerchief. I never gave Lenny a drop of it.\"",
+      "look": ""
+     },
+     {
+      "id": "r4jcwljqfzl",
+      "kind": "lie",
+      "text": "\"That's not mine. Half the girls at Maxie's use it to sleep. Ask Sal where he gets it.\"",
+      "look": ""
+     }
+    ],
+    "cardx7jdf1gfzl": [
+     {
+      "id": "r1e4i3jpfzl",
+      "kind": "useful",
+      "text": "\"So that's why Pike kept coming around. Lenny said the doctor would pay for his new horn.\"",
+      "look": ""
+     }
+    ]
+   },
+   "cardz5i9w1ffzl": {
+    "card3lmk92jfzl": [
+     {
+      "id": "rul7dq2afzl",
+      "kind": "useful",
+      "text": "\"A tragic case. He relied on barbiturates to sleep. I warned him about mixing them with gin.\" He checks his watch.",
+      "look": ""
+     },
+     {
+      "id": "rz0yj4e7fzl",
+      "kind": "lie",
+      "text": "\"Lenny owed money to the worst people in this city. I would look at the company he kept at Slapsy Maxie's (9).\"",
+      "look": ""
+     }
+    ],
+    "cardosv60lsfzl": [
+     {
+      "id": "rp6cfvgcfzl",
+      "kind": "useful",
+      "text": "\"Miss Lane was afraid of him. I don't blame her.\"",
+      "look": ""
+     }
+    ],
+    "cardz5i9w1ffzl": [
+     {
+      "id": "rhzoqhsdfzl",
+      "kind": "useful",
+      "text": "\"I treat musicians, detective. Long nights, bad habits. I keep an office in the Bradbury Building, if you need a professional opinion.\"",
+      "look": ""
+     }
+    ],
+    "cardqastctkfzl": [
+     {
+      "id": "rl4cfzcdfzl",
+      "kind": "useful",
+      "text": "\"Moretti pays his bills. That's all I know about him.\"",
+      "look": ""
+     },
+     {
+      "id": "rcf8qolkfzl",
+      "kind": "lie",
+      "text": "\"Moretti asked me once what dose of sleeping pills would stop a man's heart. I refused to answer, of course.\"",
+      "look": ""
+     }
+    ],
+    "cardjqe4hnlfzl": [
+     {
+      "id": "rkhgn7aefzl",
+      "kind": "useful",
+      "text": "He studies the tin a moment too long. \"Common enough. Every cellar in the city has one. Where did you say you found it?\"",
+      "look": ""
+     },
+     {
+      "id": "rnk99myffzl",
+      "kind": "lie",
+      "text": "\"Strychnine? Then it wasn't the pills at all. I'd look at whoever poured his drinks.\"",
+      "look": ""
+     }
+    ],
+    "cardw0dr1s1fzl": [
+     {
+      "id": "r8f3dx6ffzl",
+      "kind": "useful",
+      "text": "\"Chloroform. Useless as a poison by mouth. Whoever owns that wanted someone quiet, not dead.\"",
+      "look": ""
+     }
+    ],
+    "cardx7jdf1gfzl": [
+     {
+      "id": "r16ubo0kfzl",
+      "kind": "useful",
+      "text": "\"Ridiculous.\" His jaw tightens. \"I have nothing to hide and I'll say nothing more without my lawyer.\"",
+      "look": ""
+     }
+    ]
+   },
+   "cardqastctkfzl": {
+    "card3lmk92jfzl": [
+     {
+      "id": "rc2b3vqkfzl",
+      "kind": "useful",
+      "text": "\"Lenny owed me two grand. You think I'd kill a guy who owes me money? Ask his sawbones, Pike. They were thick as thieves.\"",
+      "look": ""
+     },
+     {
+      "id": "rkw0p0refzl",
+      "kind": "lie",
+      "text": "\"Musicians. They all end up the same way. Pills, gin, a cheap room.\"",
+      "look": ""
+     }
+    ],
+    "cardosv60lsfzl": [
+     {
+      "id": "r76biom0fzl",
+      "kind": "useful",
+      "text": "\"Vera's leaving for some record label. Lenny swore he'd sink her first.\"",
+      "look": ""
+     }
+    ],
+    "cardz5i9w1ffzl": [
+     {
+      "id": "rfb6y6nxfzl",
+      "kind": "useful",
+      "text": "\"Pike? He writes prescriptions for my boys, no questions asked. Office up in the Bradbury Building (48).\"",
+      "look": ""
+     },
+     {
+      "id": "rnrby1ntfzl",
+      "kind": "lie",
+      "text": "\"Never heard of him.\"",
+      "look": ""
+     }
+    ],
+    "cardqastctkfzl": [
+     {
+      "id": "rpwxamztfzl",
+      "kind": "useful",
+      "text": "\"I said things to Lenny I shouldn't have. Doesn't mean I did anything.\"",
+      "look": ""
+     }
+    ],
+    "cardjqe4hnlfzl": [
+     {
+      "id": "r55wvvnpfzl",
+      "kind": "useful",
+      "text": "\"We got rats at the club. We got traps for that. Never seen this tin.\"",
+      "look": ""
+     }
+    ],
+    "cardw0dr1s1fzl": [
+     {
+      "id": "rn2iy9mifzl",
+      "kind": "useful",
+      "text": "\"That's Vera's. She keeps it in her purse. Says it's for headaches.\"",
+      "look": ""
+     }
+    ],
+    "cardx7jdf1gfzl": [
+     {
+      "id": "r4jbsd4wfzl",
+      "kind": "useful",
+      "text": "\"Ha! Lenny had guts. Pike must have been sweating bullets.\"",
+      "look": ""
+     },
+     {
+      "id": "rfcyembnfzl",
+      "kind": "lie",
+      "text": "\"Lenny squeezed everybody. Including Vera. Did you know that?\"",
+      "look": "cardosv60lsfzl"
+     }
+    ]
+   }
+  },
+  "search": [
+   {
+    "id": "srchf97tefxfzl",
+    "kind": "suspect",
+    "loc": "",
+    "suspect": "cardosv60lsfzl",
+    "title": "",
+    "text": "She lets you look through her purse with a bored sigh. Lipstick, a contract from a record label and a little brown bottle in a silk handkerchief.",
+    "action": "take",
+    "target": "cardw0dr1s1fzl",
+    "place": "",
+    "instruction": "",
+    "archive": true,
+    "image": {
+     "src": "suspect",
+     "zoom": 1,
+     "x": 0,
+     "y": 0
+    }
+   },
+   {
+    "id": "srchqnfrcq4fzl",
+    "kind": "suspect",
+    "loc": "",
+    "suspect": "cardz5i9w1ffzl",
+    "title": "",
+    "text": "His black bag holds the usual: stethoscope, sleeping pills, a prescription pad and a key ring with a tag for an office in the Bradbury Building (48). He takes the keys back.",
+    "action": "none",
+    "target": "",
+    "place": "",
+    "instruction": "",
+    "archive": false,
+    "image": {
+     "src": "suspect",
+     "zoom": 1,
+     "x": 0,
+     "y": 0
+    }
+   },
+   {
+    "id": "srchcqkx3zwfzl",
+    "kind": "suspect",
+    "loc": "",
+    "suspect": "cardqastctkfzl",
+    "title": "",
+    "text": "Moretti spreads his arms. \"Go ahead.\" A roll of bills, a pistol permit and a betting slip. Nothing you can use.",
+    "action": "none",
+    "target": "",
+    "place": "",
+    "instruction": "",
+    "archive": false,
+    "image": {
+     "src": "suspect",
+     "zoom": 1,
+     "x": 0,
+     "y": 0
+    }
+   },
+   {
+    "id": "srchbh837h7fzl",
+    "kind": "location",
+    "loc": 32,
+    "suspect": "",
+    "title": "",
+    "text": "Lenny's room smells of gin. An empty pill bottle on the nightstand is labelled \"Dr. H. Pike, L.A. General (54)\". Under the mattress, a notebook of payments: \"H.P. $200\".",
+    "action": "take",
+    "target": "cardx7jdf1gfzl",
+    "place": "",
+    "instruction": "",
+    "archive": true,
+    "image": {
+     "src": "",
+     "zoom": 1,
+     "x": 0,
+     "y": 0
+    }
+   },
+   {
+    "id": "srchvh26gzyfzl",
+    "kind": "location",
+    "loc": 26,
+    "suspect": "",
+    "title": "",
+    "text": "Vera's suite is all packed boxes and train timetables. Somebody is leaving town in a hurry.",
+    "action": "none",
+    "target": "",
+    "place": "",
+    "instruction": "",
+    "archive": false,
+    "image": {
+     "src": "",
+     "zoom": 1,
+     "x": 0,
+     "y": 0
+    }
+   },
+   {
+    "id": "srchmm3js8gfzl",
+    "kind": "location",
+    "loc": 9,
+    "suspect": "",
+    "title": "",
+    "text": "The band is rehearsing without a trumpet. The bartender says Moretti and Lenny shouted at each other two nights ago. \"Then Lenny's doctor came by and calmed him down.\"",
+    "action": "none",
+    "target": "",
+    "place": "",
+    "instruction": "",
+    "archive": false,
+    "image": {
+     "src": "",
+     "zoom": 1,
+     "x": 0,
+     "y": 0
+    }
+   },
+   {
+    "id": "srchjght5b6fzl",
+    "kind": "location",
+    "loc": 54,
+    "suspect": "",
+    "title": "",
+    "text": "The nurse at the front desk points you down the corridor to a man in a pressed suit, checking his watch.",
+    "action": "place",
+    "target": "cardz5i9w1ffzl",
+    "place": 54,
+    "instruction": "",
+    "archive": true,
+    "image": {
+     "src": "",
+     "zoom": 1,
+     "x": 0,
+     "y": 0
+    }
+   },
+   {
+    "id": "srchvmpscdnfzl",
+    "kind": "location",
+    "loc": 48,
+    "suspect": "",
+    "title": "",
+    "text": "Pike's office is neat as a pin. In the bottom drawer, behind the medical journals, is a dented tin of rat poison.",
+    "action": "take",
+    "target": "cardjqe4hnlfzl",
+    "place": "",
+    "instruction": "",
+    "archive": true,
+    "image": {
+     "src": "",
+     "zoom": 1,
+     "x": 0,
+     "y": 0
+    }
+   },
+   {
+    "id": "srchi0nezmufzl",
+    "kind": "location",
+    "loc": 22,
+    "suspect": "",
+    "title": "",
+    "text": "The Stag & Bull is empty at this hour. The barman has never heard of Lenny Vance and would like you to leave.",
+    "action": "none",
+    "target": "",
+    "place": "",
+    "instruction": "",
+    "archive": false,
+    "image": {
+     "src": "",
+     "zoom": 1,
+     "x": 0,
+     "y": 0
+    }
+   }
+  ],
+  "mystery": [],
+  "briefing": {
+   "body": "Sit down and listen, because I'm only saying this once. At six this morning a maid at the Frostonya Apartment Hotel (32) found a trumpet player named Lenny \"Sugar\" Vance stone dead in his room (flip Case card A and place the crime scene marker at 32).\nAn empty bottle of sleeping pills says suicide. The coroner says the man's jaw was clenched like a bear trap. Sleeping pills don't do that.\nLenny played at Slapsy Maxie's (9) for Sal Moretti (flip Case card D and place Moretti's standee at 9). Word is Lenny owed him money and Sal is not the forgiving type.\nHis singer, Vera Lane, is holed up at the Chateau Marmont (26) (flip Case card B and place Vera's standee at 26). She was the last of the band to see him alive.\nFind out who did it before the papers do.",
+   "solving": "You must identify the guilty SUSPECT, the murder WEAPON, and the suspect's MOTIVE.",
+   "locations": [
+    {
+     "loc": 32,
+     "name": "Frostonya Apartment Hotel",
+     "label": "Crime scene"
+    },
+    {
+     "loc": 9,
+     "name": "",
+     "label": "Sal Moretti"
+    },
+    {
+     "loc": 26,
+     "name": "",
+     "label": "Vera Lane"
+    }
+   ],
+   "special": "None. This is an example case made with Case Builder.",
+   "fontSize": 0
+  },
+  "epilogue": "Vera Lane had reasons. Lenny swore he would ruin her record deal, and the chloroform in her purse looked bad. But chloroform puts people to sleep; it doesn't lock their jaws.\n\nSal Moretti had reasons too. Two thousand of them. But dead men don't pay their debts, and Sal knew it.\n\nThe man with the most to lose was the one who walked in carrying a black bag. Lenny had found out that Dr. Harold Pike wrote prescriptions for Moretti's men, and he wanted $200 a week to keep quiet.\n\nThat night Pike brought Lenny a fresh bottle of sleeping pills and poured him a gin laced with strychnine. He left the empty pill bottle on the nightstand and took the tin back to his office in the Bradbury Building.\n\nDr. Harold Pike killed Lenny Vance with rat poison, to keep his secret and his money.",
+  "settings": {
+   "newCardPerSuspect": true,
+   "portraits": true
+  }
+ },
+ "images": {}
+}

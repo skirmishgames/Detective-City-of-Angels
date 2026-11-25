@@ -1,0 +1,1467 @@
+{
+ "app": "dcoa-case-builder",
+ "version": 1,
+ "exported": "2026-11-25T00:00:00Z",
+ "case": {
+  "id": "case_fadeout",
+  "schema": 1,
+  "created": 0,
+  "updated": 0,
+  "title": "Fade Out",
+  "caseId": "CB-02",
+  "author": "Ivan & Claude",
+  "difficulty": "Veteran",
+  "outline": "- Rex Calloway, Fox Studios' leading man, owes bookie Nick Danza $30,000 and is drinking himself out of work.\n- Fixer Walter Hask uses Rex's stunt double, Eddie Moss, to stand in for Rex at public appearances when Rex is not presentable.\n- Rex dumped his co-star and lover Ruby Vale and had her cut from his next picture, Midnight Run.\n- Ruby signs a .38 out of the Fox prop armoury for a screen test, tears out the sign-out page and leaves a postcard on the seat of Rex's convertible: the sign, midnight.\n- Premiere night: Eddie, as Rex, attends Grauman's (25) with Margo, then drives Rex's car. The real Rex is losing at the Black Diamond (34) until 1 a.m.\n- Eddie finds the note and goes to the Hollywoodland Sign (29) to smooth it over. In the dark Ruby takes him for Rex and shoots him twice, once in the face.\n- Ruby throws the gun off Sunset Pier (15) at 12:51 a.m. Nick's man Sid sees her red roadster.\n- Margo identifies the body as Rex at L.A. General (54), knowing it is Eddie. Rex's death pays her $100,000.\n- Hask learns the truth, hides Rex at the Chateau Marmont (26) as 'Mr. Moss' and tells the prop master to forget the missing gun.\n- Rex packs to flee to Mexico on Eddie's name.",
+  "notes": "Twist: the victim is Eddie Moss, not Rex. First crack: Nick's most useful answer about A (Rex was at his tables until 1). Coroner's report at (54) points to Eddie's flat (38), which points to the Chateau Marmont (26). The weapon is buried behind Ruby: it can only be found at Sunset Pier (15) after Ruby is found. Clue for sharp detectives: no shell casings at the scene means a revolver, which rules out Nick's Colt.",
+  "solution": {
+   "suspect": "card_E",
+   "weapon": "card_G",
+   "motives": [
+    "Sex/Jealousy",
+    "Revenge"
+   ]
+  },
+  "alternates": [
+   {
+    "suspect": "card_F",
+    "weapon": "card_G",
+    "motives": [
+     "Money/Greed",
+     "To Keep a Secret"
+    ],
+    "note": "Rex lured his double to the sign to fake his own death and escape the debt."
+   },
+   {
+    "suspect": "card_D",
+    "weapon": "card_H",
+    "motives": [
+     "Mob Related",
+     "Money/Greed"
+    ],
+    "note": "Nick had Rex killed over the $30,000."
+   },
+   {
+    "suspect": "card_B",
+    "weapon": "card_G",
+    "motives": [
+     "Money/Greed",
+     "Sex/Jealousy"
+    ],
+    "note": "Margo collects $100,000 and lied at the morgue."
+   },
+   {
+    "suspect": "card_C",
+    "weapon": "card_G",
+    "motives": [
+     "To Keep a Secret"
+    ],
+    "note": "Hask had the studio gun reported missing and hid Rex."
+   }
+  ],
+  "questions": [
+   {
+    "text": "How will players learn the body is not Rex?",
+    "by": "Nick on A, Coroner (54), usher at (25), Margo on F",
+    "done": true
+   },
+   {
+    "text": "How will players find Eddie's flat (38)?",
+    "by": "Search (54), search of Margo",
+    "done": true
+   },
+   {
+    "text": "How will players find Rex at the Chateau Marmont (26)?",
+    "by": "Search of Hask, search (38)",
+    "done": true
+   },
+   {
+    "text": "How will players find Ruby (32)?",
+    "by": "Margo on I, Hask on I",
+    "done": true
+   },
+   {
+    "text": "How will players find the gun at Sunset Pier (15)?",
+    "by": "Search of Ruby, Nick on E",
+    "done": true
+   },
+   {
+    "text": "How will players find Nick (34)?",
+    "by": "Margo on A, Hask on A (lie), search of Hask (marker)",
+    "done": true
+   }
+  ],
+  "places": [
+   {
+    "loc": 29,
+    "what": "Crime scene, Hollywoodland Sign",
+    "kind": "crime"
+   },
+   {
+    "loc": 54,
+    "what": "Morgue, coroner",
+    "kind": "lead"
+   },
+   {
+    "loc": 8,
+    "what": "Margo Calloway, insurance policy",
+    "kind": "suspect"
+   },
+   {
+    "loc": 11,
+    "what": "Walter Hask, prop armoury",
+    "kind": "suspect"
+   },
+   {
+    "loc": 34,
+    "what": "Nick Danza",
+    "kind": "suspect"
+   },
+   {
+    "loc": 32,
+    "what": "Ruby Vale",
+    "kind": "suspect"
+   },
+   {
+    "loc": 26,
+    "what": "Rex Calloway, alive",
+    "kind": "suspect"
+   },
+   {
+    "loc": 38,
+    "what": "Eddie Moss's flat, Lila Moss",
+    "kind": "lead"
+   },
+   {
+    "loc": 15,
+    "what": "The .38 in the water",
+    "kind": "evidence"
+   },
+   {
+    "loc": 25,
+    "what": "Grauman's, premiere",
+    "kind": "lead"
+   },
+   {
+    "loc": 9,
+    "what": "Red herring",
+    "kind": "herring"
+   }
+  ],
+  "cards": [
+   {
+    "id": "card_A",
+    "type": "victim",
+    "name": "Rex Calloway",
+    "role": "The victim",
+    "text": "Hollywood's favourite leading man. Found behind the wheel of his own convertible in his premiere tux, shot twice. **Not much face left** to recognise.",
+    "frame": "",
+    "faceUp": true,
+    "foundAt": 29,
+    "weapon": false,
+    "image": {
+     "src": "kit:Male_Detective",
+     "zoom": 1,
+     "x": 0,
+     "y": 0
+    }
+   },
+   {
+    "id": "card_B",
+    "type": "suspect",
+    "name": "Margo Calloway",
+    "role": "Rex's wife",
+    "text": "Mink, pearls and not a single tear. She identified the body in **under a minute**.",
+    "frame": "",
+    "faceUp": true,
+    "foundAt": 8,
+    "weapon": false,
+    "image": {
+     "src": "kit:Female_HighSociety",
+     "zoom": 1,
+     "x": 0,
+     "y": 0
+    }
+   },
+   {
+    "id": "card_C",
+    "type": "suspect",
+    "name": "Walter Hask",
+    "role": "Studio fixer",
+    "text": "Fox Studios pays him to make problems disappear. He has been **very busy** since midnight.",
+    "frame": "",
+    "faceUp": true,
+    "foundAt": 11,
+    "weapon": false,
+    "image": {
+     "src": "kit:Male_Christas",
+     "zoom": 1,
+     "x": 0,
+     "y": 0
+    }
+   },
+   {
+    "id": "card_D",
+    "type": "suspect",
+    "name": "Nick Danza",
+    "role": "Bookmaker",
+    "text": "Runs the back room at the Black Diamond. Smiles with his mouth, **counts** with his eyes.",
+    "frame": "",
+    "faceUp": false,
+    "foundAt": 34,
+    "weapon": false,
+    "image": {
+     "src": "kit:Male_Gangster2",
+     "zoom": 1,
+     "x": 0,
+     "y": 0
+    }
+   },
+   {
+    "id": "card_E",
+    "type": "suspect",
+    "name": "Ruby Vale",
+    "role": "Starlet",
+    "text": "Rex's co-star, until she wasn't. Red roadster, red nails, **red eyes**.",
+    "frame": "",
+    "faceUp": false,
+    "foundAt": 32,
+    "weapon": false,
+    "image": {
+     "src": "kit:Female_Actress",
+     "zoom": 1,
+     "x": 0,
+     "y": 0
+    }
+   },
+   {
+    "id": "card_F",
+    "type": "suspect",
+    "name": "Rex Calloway",
+    "role": "Movie star",
+    "text": "Unshaven, unslept and **very much alive**.",
+    "frame": "",
+    "faceUp": false,
+    "foundAt": 26,
+    "weapon": false,
+    "image": {
+     "src": "kit:Male_Detective",
+     "zoom": 1,
+     "x": 0,
+     "y": 0
+    }
+   },
+   {
+    "id": "card_G",
+    "type": "evidence",
+    "name": "Smith & Wesson .38",
+    "role": "",
+    "text": "A studio armoury revolver, pulled out of the water at Sunset Pier. **Two chambers fired.**",
+    "frame": "",
+    "faceUp": false,
+    "foundAt": 15,
+    "weapon": true,
+    "image": {
+     "src": "kit:SmithWesson",
+     "zoom": 1,
+     "x": 0,
+     "y": 0
+    }
+   },
+   {
+    "id": "card_H",
+    "type": "evidence",
+    "name": "Colt 1911",
+    "role": "",
+    "text": "A heavy .45 automatic in a shoulder holster. Freshly oiled.",
+    "frame": "",
+    "faceUp": false,
+    "foundAt": 34,
+    "weapon": true,
+    "image": {
+     "src": "kit:Colt1911",
+     "zoom": 1,
+     "x": 0,
+     "y": 0
+    }
+   },
+   {
+    "id": "card_I",
+    "type": "evidence",
+    "name": "Torn postcard",
+    "role": "",
+    "text": "Found in the glovebox. \"The sign. Midnight. Come alone or don't bother coming. R.\"",
+    "frame": "",
+    "faceUp": true,
+    "foundAt": 29,
+    "weapon": false,
+    "image": {
+     "src": "kit:TornPostcard",
+     "zoom": 1,
+     "x": 0,
+     "y": 0
+    }
+   },
+   {
+    "id": "card_J",
+    "type": "evidence",
+    "name": "Insurance policy",
+    "role": "",
+    "text": "Life insurance on Rex Calloway: **$100,000**. Beneficiary: Margo Calloway.",
+    "frame": "",
+    "faceUp": false,
+    "foundAt": 8,
+    "weapon": false,
+    "image": {
+     "src": "kit:Money",
+     "zoom": 1,
+     "x": 0,
+     "y": 0
+    }
+   },
+   {
+    "id": "card_K",
+    "type": "info",
+    "name": "Rex's debt",
+    "role": "",
+    "text": "Rex Calloway owed Nick Danza $30,000.",
+    "frame": "",
+    "faceUp": false,
+    "foundAt": "",
+    "weapon": false,
+    "image": {
+     "src": "",
+     "zoom": 1,
+     "x": 0,
+     "y": 0
+    }
+   },
+   {
+    "id": "card_L",
+    "type": "info",
+    "name": "The double",
+    "role": "",
+    "text": "Eddie Moss, Rex's stunt double, stood in for Rex at public appearances.",
+    "frame": "",
+    "faceUp": false,
+    "foundAt": "",
+    "weapon": false,
+    "image": {
+     "src": "",
+     "zoom": 1,
+     "x": 0,
+     "y": 0
+    }
+   }
+  ],
+  "responses": {
+   "card_B": {
+    "card_A": [
+     {
+      "id": "rfo001",
+      "kind": "useful",
+      "text": "\"Rex was a beautiful liar, detective. He owed money all over town, mostly to Nick Danza at the Black Diamond (34).\" She doesn't cry. She hasn't cried once.",
+      "look": ""
+     },
+     {
+      "id": "rfo002",
+      "kind": "lie",
+      "text": "\"I identified my husband at L.A. General myself. Do you think a wife doesn't know her own husband?\"",
+      "look": ""
+     },
+     {
+      "id": "rfo003",
+      "kind": "lie",
+      "text": "\"We went to the premiere at Grauman's (25) together. He left early, alone. I never saw him alive again.\"",
+      "look": ""
+     }
+    ],
+    "card_B": [
+     {
+      "id": "rfo004",
+      "kind": "useful",
+      "text": "\"Twelve years married to a man the whole country loved. Not one of those years was mine.\" She lights a cigarette. \"Ask what you came to ask.\"",
+      "look": ""
+     },
+     {
+      "id": "rfo005",
+      "kind": "lie",
+      "text": "\"I was asleep in the bungalow by eleven. The night clerk will tell you.\"",
+      "look": ""
+     }
+    ],
+    "card_C": [
+     {
+      "id": "rfo006",
+      "kind": "useful",
+      "text": "\"Walter cleans up Rex's messes. He's been on the telephone since dawn, and none of those calls were to the police.\"",
+      "look": ""
+     },
+     {
+      "id": "rfo007",
+      "kind": "lie",
+      "text": "\"Walter? A perfect gentleman. He has been nothing but kind to me.\"",
+      "look": ""
+     }
+    ],
+    "card_D": [
+     {
+      "id": "rfo008",
+      "kind": "useful",
+      "text": "\"Rex owed him thirty thousand dollars. Nick sent two men to the bungalow last week. Rex hid in the bathroom.\"",
+      "look": "card_K"
+     },
+     {
+      "id": "rfo009",
+      "kind": "lie",
+      "text": "\"Nick Danza told Rex he would put him in the ground. Those were his exact words. I heard them.\"",
+      "look": ""
+     }
+    ],
+    "card_E": [
+     {
+      "id": "rfo010",
+      "kind": "useful",
+      "text": "\"Ruby Vale. Rex's latest. He tired of her the way he tired of everything, and had her taken off his next picture.\"",
+      "look": ""
+     },
+     {
+      "id": "rfo011",
+      "kind": "lie",
+      "text": "\"That little nobody swore she would kill him. Half of Fox heard her say it.\"",
+      "look": ""
+     }
+    ],
+    "card_F": [
+     {
+      "id": "rfo012",
+      "kind": "useful",
+      "text": "She goes white. \"So he let me put his name on a dead man.\" She sits down very slowly. \"I knew at the morgue, detective. I said it was Rex anyway.\"",
+      "look": ""
+     },
+     {
+      "id": "rfo013",
+      "kind": "lie",
+      "text": "\"That's impossible. I saw my husband's body with my own eyes.\"",
+      "look": ""
+     }
+    ],
+    "card_G": [
+     {
+      "id": "rfo014",
+      "kind": "useful",
+      "text": "\"I have never held a gun in my life, detective. Rex kept those for his pictures.\"",
+      "look": ""
+     }
+    ],
+    "card_H": [
+     {
+      "id": "rfo015",
+      "kind": "useful",
+      "text": "\"Not Rex's. Rex only ever fired blanks. That's a real gun.\"",
+      "look": ""
+     },
+     {
+      "id": "rfo016",
+      "kind": "lie",
+      "text": "\"Nick Danza carries one just like it. His men showed it to Rex the night they came.\"",
+      "look": ""
+     }
+    ],
+    "card_I": [
+     {
+      "id": "rfo017",
+      "kind": "useful",
+      "text": "\"That's Ruby Vale's handwriting. She sent him enough letters. She lives at the Frostonya (32).\"",
+      "look": ""
+     },
+     {
+      "id": "rfo018",
+      "kind": "lie",
+      "text": "\"'R'? Could be anyone. Rex signed his own notes that way.\"",
+      "look": ""
+     }
+    ],
+    "card_J": [
+     {
+      "id": "rfo019",
+      "kind": "useful",
+      "text": "\"A hundred thousand dollars. Rex took it out when we married. I'm the beneficiary. That isn't a crime, it's a widow's pension.\"",
+      "look": ""
+     },
+     {
+      "id": "rfo020",
+      "kind": "lie",
+      "text": "\"Walter made Rex take that out. Ask the studio why.\"",
+      "look": ""
+     }
+    ],
+    "card_K": [
+     {
+      "id": "rfo021",
+      "kind": "useful",
+      "text": "\"Thirty thousand. Rex said the studio would cover it. Walter said the studio would not.\"",
+      "look": ""
+     }
+    ],
+    "card_L": [
+     {
+      "id": "rfo022",
+      "kind": "useful",
+      "text": "She closes her eyes. \"Eddie stood in for Rex at parties, openings, the premiere last night. He was kind to me. Rex never was.\"",
+      "look": ""
+     },
+     {
+      "id": "rfo023",
+      "kind": "lie",
+      "text": "\"Doubles stand in on set, detective. Nowhere else. Don't be absurd.\"",
+      "look": ""
+     }
+    ]
+   },
+   "card_C": {
+    "card_A": [
+     {
+      "id": "rfo024",
+      "kind": "useful",
+      "text": "\"Mr. Calloway was the studio's biggest asset. Any trouble surrounding his death is the studio's trouble, and I am handling it.\"",
+      "look": ""
+     },
+     {
+      "id": "rfo025",
+      "kind": "lie",
+      "text": "\"Rex was into the wrong people. If I were you, I'd start at the Black Diamond Casino (34).\"",
+      "look": ""
+     },
+     {
+      "id": "rfo026",
+      "kind": "lie",
+      "text": "\"A tragic accident with a firearm. The man was careless. Fox will issue a statement this afternoon.\"",
+      "look": ""
+     }
+    ],
+    "card_B": [
+     {
+      "id": "rfo027",
+      "kind": "useful",
+      "text": "\"Mrs. Calloway identified the body quickly. Remarkably quickly.\" He lets that sit.",
+      "look": ""
+     },
+     {
+      "id": "rfo028",
+      "kind": "lie",
+      "text": "\"A devoted wife. Utterly devoted. The studio is looking after her.\"",
+      "look": ""
+     }
+    ],
+    "card_C": [
+     {
+      "id": "rfo029",
+      "kind": "useful",
+      "text": "\"I keep scandal out of the papers, detective. Last night I kept a great deal out. That is my job, not a confession.\"",
+      "look": ""
+     }
+    ],
+    "card_D": [
+     {
+      "id": "rfo030",
+      "kind": "useful",
+      "text": "\"Danza came to my office wanting Rex's marker paid. I declined.\"",
+      "look": "card_K"
+     },
+     {
+      "id": "rfo031",
+      "kind": "lie",
+      "text": "\"Danza threatened to hurt Rex if he didn't pay by Friday. I would call that a motive.\"",
+      "look": ""
+     }
+    ],
+    "card_E": [
+     {
+      "id": "rfo032",
+      "kind": "useful",
+      "text": "\"Miss Vale has a contract and a temper. She took her dismissal from Rex's picture very badly.\"",
+      "look": ""
+     },
+     {
+      "id": "rfo033",
+      "kind": "lie",
+      "text": "\"Ruby? A sweet kid. She wouldn't hurt a fly.\"",
+      "look": ""
+     }
+    ],
+    "card_F": [
+     {
+      "id": "rfo034",
+      "kind": "useful",
+      "text": "\"Yes, he's alive, and yes, I hid him. A dead star sells tickets. A star who ran away from a murder does not. Arrest me for public relations.\"",
+      "look": ""
+     },
+     {
+      "id": "rfo035",
+      "kind": "lie",
+      "text": "\"Whatever you think you've found, you haven't.\"",
+      "look": ""
+     }
+    ],
+    "card_G": [
+     {
+      "id": "rfo036",
+      "kind": "useful",
+      "text": "\"That's one of ours. The prop master reported a .38 missing from the armoury three days ago. Someone tore the page out of the sign-out book.\"",
+      "look": ""
+     },
+     {
+      "id": "rfo037",
+      "kind": "lie",
+      "text": "\"Never seen it before. Ask the gangster.\"",
+      "look": ""
+     }
+    ],
+    "card_H": [
+     {
+      "id": "rfo038",
+      "kind": "useful",
+      "text": "\"That isn't a studio piece. We don't keep anything that ugly.\"",
+      "look": ""
+     }
+    ],
+    "card_I": [
+     {
+      "id": "rfo039",
+      "kind": "useful",
+      "text": "\"Ruby Vale's hand. She lives at the Frostonya Apartment Hotel (32). The studio pays the rent.\"",
+      "look": ""
+     },
+     {
+      "id": "rfo040",
+      "kind": "lie",
+      "text": "\"A fan letter. Rex got a thousand of them a week.\"",
+      "look": ""
+     }
+    ],
+    "card_J": [
+     {
+      "id": "rfo041",
+      "kind": "useful",
+      "text": "\"The studio holds a policy on Rex as well. If he is dead, two parties get paid. Mrs. Calloway is one of them.\"",
+      "look": ""
+     }
+    ],
+    "card_K": [
+     {
+      "id": "rfo042",
+      "kind": "useful",
+      "text": "\"I told Danza the studio does not pay gambling debts. He told me the debt would be paid one way or another.\"",
+      "look": ""
+     },
+     {
+      "id": "rfo043",
+      "kind": "lie",
+      "text": "\"Rex owed nobody. He was the highest-paid man on the lot.\"",
+      "look": ""
+     }
+    ],
+    "card_L": [
+     {
+      "id": "rfo044",
+      "kind": "useful",
+      "text": "\"We used Eddie Moss at events when Rex wasn't... presentable. It's done all over town. It was never supposed to get anyone killed.\"",
+      "look": ""
+     }
+    ]
+   },
+   "card_D": {
+    "card_A": [
+     {
+      "id": "rfo045",
+      "kind": "useful",
+      "text": "\"Calloway was at my tables till one in the morning, losing. Funny thing for a man you say died at midnight.\"",
+      "look": ""
+     },
+     {
+      "id": "rfo046",
+      "kind": "lie",
+      "text": "\"He had it coming. Owed half the Strip. Ask around Slapsy Maxie's (9).\"",
+      "look": ""
+     }
+    ],
+    "card_B": [
+     {
+      "id": "rfo047",
+      "kind": "useful",
+      "text": "\"The wife? Ice water. She told my boys Rex was worth more to her dead than alive.\"",
+      "look": ""
+     },
+     {
+      "id": "rfo048",
+      "kind": "lie",
+      "text": "\"She came to me last month asking what it would cost to make a husband disappear.\"",
+      "look": ""
+     }
+    ],
+    "card_C": [
+     {
+      "id": "rfo049",
+      "kind": "useful",
+      "text": "\"Hask is a fixer. Fixers fix. If I wanted to know where a body was buried, I'd ask him.\"",
+      "look": ""
+     }
+    ],
+    "card_D": [
+     {
+      "id": "rfo050",
+      "kind": "useful",
+      "text": "\"I'm a businessman. Dead men don't pay. I wanted Calloway alive and broke, not dead and broke.\"",
+      "look": ""
+     }
+    ],
+    "card_E": [
+     {
+      "id": "rfo051",
+      "kind": "useful",
+      "text": "\"My boy Sid was at Sunset Pier (15) around one, collecting. He saw a red roadster at the end of the pier and a dame throw something in the water. He says it was Ruby Vale's car.\"",
+      "look": ""
+     },
+     {
+      "id": "rfo052",
+      "kind": "lie",
+      "text": "\"Never met the lady.\"",
+      "look": ""
+     }
+    ],
+    "card_F": [
+     {
+      "id": "rfo053",
+      "kind": "useful",
+      "text": "\"Well, well. Back from the dead and still owing me thirty grand.\" He smiles. \"I always knew it.\"",
+      "look": ""
+     },
+     {
+      "id": "rfo054",
+      "kind": "lie",
+      "text": "\"You found him alive? Then you found your killer. Oldest way there is to get out of a debt.\"",
+      "look": ""
+     }
+    ],
+    "card_G": [
+     {
+      "id": "rfo055",
+      "kind": "useful",
+      "text": "\"A .38 revolver? In my line of work that's a lady's gun.\"",
+      "look": ""
+     },
+     {
+      "id": "rfo056",
+      "kind": "lie",
+      "text": "\"That's Calloway's. He waved it at Sid once. A movie gun with real bullets in it.\"",
+      "look": ""
+     }
+    ],
+    "card_H": [
+     {
+      "id": "rfo057",
+      "kind": "useful",
+      "text": "\"Yeah, it's mine. Licensed. Smell the barrel. It ain't been fired in a month.\"",
+      "look": ""
+     },
+     {
+      "id": "rfo058",
+      "kind": "lie",
+      "text": "\"Never seen it. Somebody's trying to frame a working man.\"",
+      "look": ""
+     }
+    ],
+    "card_I": [
+     {
+      "id": "rfo059",
+      "kind": "useful",
+      "text": "\"Love notes? Ain't my department.\"",
+      "look": ""
+     }
+    ],
+    "card_J": [
+     {
+      "id": "rfo060",
+      "kind": "useful",
+      "text": "\"A hundred grand on Calloway? Then the widow's got my thirty.\"",
+      "look": ""
+     },
+     {
+      "id": "rfo061",
+      "kind": "lie",
+      "text": "\"Hask showed me that policy himself. Said the studio would be paid out either way.\"",
+      "look": ""
+     }
+    ],
+    "card_K": [
+     {
+      "id": "rfo062",
+      "kind": "useful",
+      "text": "\"Thirty thousand, and I want it. Hask has Calloway's marker in his pocket. Ask him why.\"",
+      "look": ""
+     }
+    ],
+    "card_L": [
+     {
+      "id": "rfo063",
+      "kind": "useful",
+      "text": "\"A double?\" He laughs. \"So the guy losing at my tables was the real one. I always knew Calloway couldn't act.\"",
+      "look": ""
+     }
+    ]
+   },
+   "card_E": {
+    "card_A": [
+     {
+      "id": "rfo064",
+      "kind": "useful",
+      "text": "\"Rex promised me everything and gave me nothing. I'm not sorry he's dead. I'm sorry about the two years.\" Her hands won't keep still.",
+      "look": ""
+     },
+     {
+      "id": "rfo065",
+      "kind": "lie",
+      "text": "\"I was home all night at the Frostonya, learning lines. Ask the doorman.\"",
+      "look": ""
+     },
+     {
+      "id": "rfo066",
+      "kind": "lie",
+      "text": "\"Nick Danza's men were looking for Rex all week. Everyone on the lot knew it.\"",
+      "look": ""
+     }
+    ],
+    "card_B": [
+     {
+      "id": "rfo067",
+      "kind": "useful",
+      "text": "\"Margo wanted him dead more than anyone. She just wanted it to pay.\"",
+      "look": ""
+     },
+     {
+      "id": "rfo068",
+      "kind": "lie",
+      "text": "\"Margo told me last week she'd make sure Rex never left her. She said it like a threat.\"",
+      "look": ""
+     }
+    ],
+    "card_C": [
+     {
+      "id": "rfo069",
+      "kind": "useful",
+      "text": "\"Walter tells everyone what to say. He told me to keep my mouth shut about Rex and I'd keep my contract.\"",
+      "look": ""
+     }
+    ],
+    "card_D": [
+     {
+      "id": "rfo070",
+      "kind": "useful",
+      "text": "\"Rex owed him. Everyone knows that.\"",
+      "look": ""
+     }
+    ],
+    "card_E": [
+     {
+      "id": "rfo071",
+      "kind": "useful",
+      "text": "\"I'm an actress, detective. Rex had me dropped from Midnight Run. It's the best part I'll never play.\"",
+      "look": ""
+     },
+     {
+      "id": "rfo072",
+      "kind": "lie",
+      "text": "\"Rex and I were finished. Amicably. We're grown-ups.\"",
+      "look": ""
+     }
+    ],
+    "card_F": [
+     {
+      "id": "rfo073",
+      "kind": "useful",
+      "text": "Her face falls apart. \"Alive? No. No, that isn't... then who...\" She grips the back of a chair. \"I want a lawyer.\"",
+      "look": ""
+     },
+     {
+      "id": "rfo074",
+      "kind": "lie",
+      "text": "\"Of course he's alive. Rex always found a way to make fools of everyone.\"",
+      "look": ""
+     }
+    ],
+    "card_G": [
+     {
+      "id": "rfo075",
+      "kind": "useful",
+      "text": "\"A studio gun? There are dozens of them on the lot. I used one in a screen test last week.\"",
+      "look": ""
+     },
+     {
+      "id": "rfo076",
+      "kind": "lie",
+      "text": "\"I've never seen it before. I hate guns.\"",
+      "look": ""
+     }
+    ],
+    "card_H": [
+     {
+      "id": "rfo077",
+      "kind": "useful",
+      "text": "\"That isn't mine. It looks like something Nick Danza's men would carry.\"",
+      "look": ""
+     }
+    ],
+    "card_I": [
+     {
+      "id": "rfo078",
+      "kind": "useful",
+      "text": "She reads it twice. \"I wrote it. I wanted him to look me in the eye and tell me it was over.\" She hands it back. \"I don't have to say anything else.\"",
+      "look": ""
+     },
+     {
+      "id": "rfo079",
+      "kind": "lie",
+      "text": "\"I waited an hour at the sign and he never showed. Typical Rex.\"",
+      "look": ""
+     }
+    ],
+    "card_J": [
+     {
+      "id": "rfo080",
+      "kind": "useful",
+      "text": "\"Margo's? Of course it is. She always knew exactly what Rex was worth.\"",
+      "look": ""
+     }
+    ],
+    "card_K": [
+     {
+      "id": "rfo081",
+      "kind": "useful",
+      "text": "\"Rex gambled away everything. Including my career.\"",
+      "look": ""
+     }
+    ],
+    "card_L": [
+     {
+      "id": "rfo082",
+      "kind": "useful",
+      "text": "\"Eddie Moss? He was kind to me on set. He used to fetch me coffee.\" She is suddenly very pale.",
+      "look": ""
+     },
+     {
+      "id": "rfo083",
+      "kind": "lie",
+      "text": "\"I never met any double. Rex did all his own parties.\"",
+      "look": ""
+     }
+    ]
+   },
+   "card_F": {
+    "card_A": [
+     {
+      "id": "rfo084",
+      "kind": "useful",
+      "text": "\"Eddie wore my tux and drove my car so I could have one night off being Rex Calloway. Somebody shot him for being me.\" He pours a drink with a shaking hand.",
+      "look": ""
+     },
+     {
+      "id": "rfo085",
+      "kind": "lie",
+      "text": "\"Nick Danza's boys. They wanted me and they got Eddie. Ask Nick where his men were at midnight.\"",
+      "look": ""
+     },
+     {
+      "id": "rfo086",
+      "kind": "lie",
+      "text": "\"I was here all night. Walter will tell you.\"",
+      "look": ""
+     }
+    ],
+    "card_B": [
+     {
+      "id": "rfo087",
+      "kind": "useful",
+      "text": "\"Margo knew it wasn't me the moment she saw him. She said my name anyway. That's my wife.\"",
+      "look": ""
+     }
+    ],
+    "card_C": [
+     {
+      "id": "rfo088",
+      "kind": "useful",
+      "text": "\"Walter hid me here and told me to stay dead until the picture wraps. It sounded like good advice.\"",
+      "look": ""
+     }
+    ],
+    "card_D": [
+     {
+      "id": "rfo089",
+      "kind": "useful",
+      "text": "\"I was at Nick's tables till one, losing money I didn't have. Ask his dealers.\"",
+      "look": ""
+     },
+     {
+      "id": "rfo090",
+      "kind": "lie",
+      "text": "\"Nick swore he'd kill me if I didn't pay by Friday. Yesterday was Thursday.\"",
+      "look": ""
+     }
+    ],
+    "card_E": [
+     {
+      "id": "rfo091",
+      "kind": "useful",
+      "text": "\"Ruby? I ended it. Badly. I had Walter cut her from the picture.\" He looks away. \"She took it hard.\"",
+      "look": ""
+     },
+     {
+      "id": "rfo092",
+      "kind": "lie",
+      "text": "\"Ruby's harmless. Leave her out of this.\"",
+      "look": ""
+     }
+    ],
+    "card_F": [
+     {
+      "id": "rfo093",
+      "kind": "useful",
+      "text": "\"I'm a coward, detective, not a killer. I ran. That's all I did.\"",
+      "look": ""
+     }
+    ],
+    "card_G": [
+     {
+      "id": "rfo094",
+      "kind": "useful",
+      "text": "\"That's a prop-room .38. I used one in Night Train. Fox keeps them locked in a cage.\"",
+      "look": ""
+     },
+     {
+      "id": "rfo095",
+      "kind": "lie",
+      "text": "\"Never seen it before.\"",
+      "look": ""
+     }
+    ],
+    "card_H": [
+     {
+      "id": "rfo096",
+      "kind": "useful",
+      "text": "\"Nick's men carry those. Big, ugly .45s.\"",
+      "look": ""
+     }
+    ],
+    "card_I": [
+     {
+      "id": "rfo097",
+      "kind": "useful",
+      "text": "He goes grey. \"That's Ruby's hand. I never saw this. Eddie had my car last night.\"",
+      "look": ""
+     },
+     {
+      "id": "rfo098",
+      "kind": "lie",
+      "text": "\"Fan mail. It means nothing.\"",
+      "look": ""
+     }
+    ],
+    "card_J": [
+     {
+      "id": "rfo099",
+      "kind": "useful",
+      "text": "\"Margo was always going to be a rich widow. I just helped her along.\"",
+      "look": ""
+     }
+    ],
+    "card_K": [
+     {
+      "id": "rfo100",
+      "kind": "useful",
+      "text": "\"Thirty thousand. I'd have paid it off with the next picture.\"",
+      "look": ""
+     },
+     {
+      "id": "rfo101",
+      "kind": "lie",
+      "text": "\"Nick's lying. It was ten thousand, and I paid it.\"",
+      "look": ""
+     }
+    ],
+    "card_L": [
+     {
+      "id": "rfo102",
+      "kind": "useful",
+      "text": "\"Eddie was the better man in my suit. That's the joke of it.\"",
+      "look": ""
+     }
+    ]
+   }
+  },
+  "search": [
+   {
+    "id": "srchfo103",
+    "kind": "suspect",
+    "loc": "",
+    "suspect": "card_B",
+    "title": "",
+    "text": "She opens her purse without a word: cigarettes, a pressed white carnation from the premiere and a matchbook with an address pencilled inside: \"E., Hoover & Temple (38)\".",
+    "action": "none",
+    "target": "",
+    "place": "",
+    "instruction": "",
+    "archive": false,
+    "image": {
+     "src": "suspect",
+     "zoom": 1,
+     "x": 0,
+     "y": 0
+    }
+   },
+   {
+    "id": "srchfo104",
+    "kind": "suspect",
+    "loc": "",
+    "suspect": "card_C",
+    "title": "",
+    "text": "Hask lets you pat him down with practised patience. Inside his jacket: a casino marker and a key on a Chateau Marmont (26) fob. He takes the key back. \"Studio property.\"",
+    "action": "take",
+    "target": "card_K",
+    "place": "",
+    "instruction": "",
+    "archive": true,
+    "image": {
+     "src": "suspect",
+     "zoom": 1,
+     "x": 0,
+     "y": 0
+    }
+   },
+   {
+    "id": "srchfo105",
+    "kind": "suspect",
+    "loc": "",
+    "suspect": "card_D",
+    "title": "",
+    "text": "Two of Nick's men step forward. Nick waves them off and lets you open his jacket. Under his arm, in a shoulder holster, is a heavy automatic.",
+    "action": "take",
+    "target": "card_H",
+    "place": "",
+    "instruction": "",
+    "archive": true,
+    "image": {
+     "src": "suspect",
+     "zoom": 1,
+     "x": 0,
+     "y": 0
+    }
+   },
+   {
+    "id": "srchfo106",
+    "kind": "suspect",
+    "loc": "",
+    "suspect": "card_E",
+    "title": "",
+    "text": "Her handbag holds a studio pass, a script with her part crossed out in red pencil and a parking stub from Sunset Pier (15), punched at 12:51 a.m. There is sand in the seams of her shoes.",
+    "action": "none",
+    "target": "",
+    "place": "",
+    "instruction": "",
+    "archive": false,
+    "image": {
+     "src": "suspect",
+     "zoom": 1,
+     "x": 0,
+     "y": 0
+    }
+   },
+   {
+    "id": "srchfo107",
+    "kind": "suspect",
+    "loc": "",
+    "suspect": "card_F",
+    "title": "",
+    "text": "Rex's suitcase is already packed. Inside: four thousand dollars in cash and a train ticket to Mexico City in the name of E. Moss.",
+    "action": "none",
+    "target": "",
+    "place": "",
+    "instruction": "",
+    "archive": false,
+    "image": {
+     "src": "suspect",
+     "zoom": 1,
+     "x": 0,
+     "y": 0
+    }
+   },
+   {
+    "id": "srchfo108",
+    "kind": "location",
+    "loc": 29,
+    "suspect": "",
+    "title": "",
+    "text": "The convertible has been towed, but the gravel at the lookout still tells a story: Rex's tyre tracks, and a second, narrower set that turned around in a hurry. No shell casings anywhere. Whoever fired used a revolver.",
+    "action": "none",
+    "target": "",
+    "place": "",
+    "instruction": "",
+    "archive": false,
+    "image": {
+     "src": "",
+     "zoom": 1,
+     "x": 0,
+     "y": 0
+    }
+   },
+   {
+    "id": "srchfo109",
+    "kind": "location",
+    "loc": 54,
+    "suspect": "",
+    "title": "",
+    "text": "The coroner chews a cold cigar. \"Face is gone. But those are a stuntman's hands, all calluses. And this was sewn into his collar.\" A laundry tag: E. MOSS, HOOVER & TEMPLE (38).",
+    "action": "mystery",
+    "target": "mys_coroner",
+    "place": "",
+    "instruction": "",
+    "archive": true,
+    "image": {
+     "src": "",
+     "zoom": 1,
+     "x": 0,
+     "y": 0
+    }
+   },
+   {
+    "id": "srchfo110",
+    "kind": "location",
+    "loc": 8,
+    "suspect": "",
+    "title": "",
+    "text": "The Calloways' bungalow is all white flowers and black crepe. In the writing desk, under a stack of condolence telegrams, is a life insurance policy.",
+    "action": "take",
+    "target": "card_J",
+    "place": "",
+    "instruction": "",
+    "archive": true,
+    "image": {
+     "src": "",
+     "zoom": 1,
+     "x": 0,
+     "y": 0
+    }
+   },
+   {
+    "id": "srchfo111",
+    "kind": "location",
+    "loc": 11,
+    "suspect": "",
+    "title": "",
+    "text": "The prop master is still angry. A .38 revolver went missing from the armoury cage three days ago, and someone tore the page out of the sign-out book. \"Mr. Hask told me to forget it,\" he says.",
+    "action": "none",
+    "target": "",
+    "place": "",
+    "instruction": "",
+    "archive": false,
+    "image": {
+     "src": "",
+     "zoom": 1,
+     "x": 0,
+     "y": 0
+    }
+   },
+   {
+    "id": "srchfo112",
+    "kind": "location",
+    "loc": 25,
+    "suspect": "",
+    "title": "",
+    "text": "The usher remembers Mr. Calloway arriving with his wife. \"Shorter than in the pictures,\" she says. \"And he didn't say one word all night. Not one.\"",
+    "action": "none",
+    "target": "",
+    "place": "",
+    "instruction": "",
+    "archive": false,
+    "image": {
+     "src": "",
+     "zoom": 1,
+     "x": 0,
+     "y": 0
+    }
+   },
+   {
+    "id": "srchfo113",
+    "kind": "location",
+    "loc": 34,
+    "suspect": "",
+    "title": "",
+    "text": "The doorman decides you're not worth the trouble. In the back room, Nick Danza is counting other people's money.",
+    "action": "place",
+    "target": "card_D",
+    "place": 34,
+    "instruction": "",
+    "archive": true,
+    "image": {
+     "src": "",
+     "zoom": 1,
+     "x": 0,
+     "y": 0
+    }
+   },
+   {
+    "id": "srchfo114",
+    "kind": "location",
+    "loc": 32,
+    "suspect": "",
+    "title": "",
+    "text": "Ruby Vale opens the door in a dressing gown, script in hand. Her eyes are red and her roadster is parked crooked in the street below. \"Come in, I suppose.\"",
+    "action": "place",
+    "target": "card_E",
+    "place": 32,
+    "instruction": "",
+    "archive": true,
+    "image": {
+     "src": "",
+     "zoom": 1,
+     "x": 0,
+     "y": 0
+    }
+   },
+   {
+    "id": "srchfo115",
+    "kind": "location",
+    "loc": 38,
+    "suspect": "",
+    "title": "",
+    "text": "A small apartment over a laundry. Lila Moss hasn't seen her husband Eddie since he left last night \"on a job for the studio\" in a borrowed tuxedo. \"He said Mr. Calloway was hiding at the Chateau Marmont (26),\" she says. \"He thought it was funny.\"",
+    "action": "take",
+    "target": "card_L",
+    "place": "",
+    "instruction": "",
+    "archive": true,
+    "image": {
+     "src": "",
+     "zoom": 1,
+     "x": 0,
+     "y": 0
+    }
+   },
+   {
+    "id": "srchfo116",
+    "kind": "location",
+    "loc": 26,
+    "suspect": "",
+    "title": "",
+    "text": "The desk clerk swears Bungalow 3 is rented to a \"Mr. Moss\". The man who opens the door has a famous face and two days of beard. Rex Calloway is very much alive.",
+    "action": "custom",
+    "target": "",
+    "place": "",
+    "instruction": "FLIP CASE CARD F AND PLACE REX CALLOWAY AT (26). PLACE MYSTERY CARD 1 OVER CASE CARD A. YOU MAY ASK CALLOWAY 1 FREE QUESTION.",
+    "archive": true,
+    "image": {
+     "src": "",
+     "zoom": 1,
+     "x": 0,
+     "y": 0
+    }
+   },
+   {
+    "id": "srchfo117",
+    "kind": "location",
+    "loc": 15,
+    "suspect": "",
+    "title": "",
+    "text": "A boy fishing off the end of the pier hooked something heavy at dawn: a .38 revolver, two chambers fired. He would rather keep it, but he would rather not go to jail even more.",
+    "action": "take",
+    "target": "card_G",
+    "place": "",
+    "instruction": "",
+    "archive": true,
+    "image": {
+     "src": "",
+     "zoom": 1,
+     "x": 0,
+     "y": 0
+    }
+   },
+   {
+    "id": "srchfo118",
+    "kind": "location",
+    "loc": 9,
+    "suspect": "",
+    "title": "",
+    "text": "Nobody at Slapsy Maxie's has seen Rex Calloway in a month. He hasn't been welcome since the business with the cigarette girl.",
+    "action": "none",
+    "target": "",
+    "place": "",
+    "instruction": "",
+    "archive": false,
+    "image": {
+     "src": "",
+     "zoom": 1,
+     "x": 0,
+     "y": 0
+    }
+   }
+  ],
+  "mystery": [
+   {
+    "id": "mys_eddie",
+    "title": "The victim: Eddie Moss",
+    "text": "The dead man in Rex Calloway's car is **Eddie Moss**, Rex's stunt double.\n\nPlace this card over Case card A. From now on, questions about Case card A are about the death of Eddie Moss.",
+    "replaces": "card_A",
+    "image": {
+     "src": "",
+     "zoom": 1,
+     "x": 0,
+     "y": 0
+    }
+   },
+   {
+    "id": "mys_coroner",
+    "title": "Coroner's report",
+    "text": "The dead man has an old, badly healed collarbone break and a stuntman's calluses on both hands. Rex Calloway's studio medical file shows neither.\n\nDetectives may look at this card as if it were a Case card.",
+    "replaces": "",
+    "image": {
+     "src": "kit:BloodyRags",
+     "zoom": 1,
+     "x": 0,
+     "y": 0
+    }
+   }
+  ],
+  "briefing": {
+   "body": "Pull up a chair. Rex Calloway is dead, and by lunchtime every paper in the country will say so.\nAt 12:20 this morning a patrol car found Rex's convertible at the lookout below the Hollywoodland Sign (29) (flip Case card A and place the crime scene marker at 29). Rex was behind the wheel in his premiere tux, shot twice, once in the face. There isn't much left of that famous mug to look at.\nHis wife, Margo Calloway, identified him at the L.A. General (54) morgue an hour later. She's back in the family bungalow at the Beverly Hills Hotel (8) (flip Case card B and place Margo's standee at 8). Dry-eyed, I'm told.\nBefore I'd finished my first coffee, Fox Studios had sent their man, Walter Hask (flip Case card C and place Hask's standee at 11). He's very keen we call it an accident, and he's at Fox Studios (11) making sure the papers agree.\nThe only thing in that car that wasn't Rex's was a torn postcard in the glovebox (flip Case card I). Somebody wanted a meeting.\nThe studio wants it tidy. The Chief wants it fast. I want it right. Don't make me choose.",
+   "solving": "You must identify the guilty SUSPECT, the murder WEAPON, and the suspect's MOTIVE.",
+   "locations": [
+    {
+     "loc": 29,
+     "name": "Hollywoodland Sign",
+     "label": "Crime scene"
+    },
+    {
+     "loc": 54,
+     "name": "L.A. General",
+     "label": "Morgue"
+    },
+    {
+     "loc": 8,
+     "name": "",
+     "label": "Margo Calloway"
+    },
+    {
+     "loc": 11,
+     "name": "",
+     "label": "Walter Hask"
+    }
+   ],
+   "special": "When Rex Calloway is found, place Mystery card 1 over Case card A. Questions about Case card A are then about the dead man, Eddie Moss.\n\nMystery card 2 may be looked at as if it were a Case card.",
+   "fontSize": 0
+  },
+  "epilogue": "Margo Calloway looked guilty from the start. A hundred-thousand-dollar policy, no tears and an identification made in under a minute. She knew at the morgue that the hands on that slab were Eddie Moss's, the only man in her life who had ever been kind to her. She said Rex's name anyway, because a dead Rex paid. That was a lie, not a murder.\n\nNick Danza had thirty thousand reasons and a .45 under his arm. But Nick's own dealers watched Rex Calloway lose at the Black Diamond until one in the morning, an hour after \"Rex\" was shot at the sign. Nick couldn't have killed a man who was sitting at his table.\n\nWhich brings us to Rex himself, alive in Bungalow 3 with a suitcase full of cash and a ticket to Mexico in a dead man's name. Walter Hask hid him and buried the report of a missing studio gun, because a dead star sells tickets and a scandal doesn't. Rex is a coward and Hask is a fixer. Neither pulled the trigger.\n\nThe trigger was pulled by someone who thought she was killing Rex Calloway. Ruby Vale signed a .38 out of the Fox armoury for a screen test and tore the page from the book. She left a postcard on the seat of Rex's convertible: the sign, midnight, come alone.\n\nBut Rex wasn't driving his car that night. Eddie Moss was, in Rex's tux, after standing in for him at the premiere. Eddie found the note and drove up to smooth things over, the way he always did. In the dark he didn't say a word; he never could do Rex's voice.\n\nRuby fired twice. She drove to Sunset Pier, threw the gun off the end and went home to learn her lines. She killed the one man on the lot who used to bring her coffee.\n\nRuby Vale shot Eddie Moss with a studio Smith & Wesson .38, out of jealousy and revenge against the man she thought he was.",
+  "settings": {
+   "newCardPerSuspect": true,
+   "portraits": true
+  }
+ },
+ "images": {}
+}

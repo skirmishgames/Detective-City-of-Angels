@@ -1,0 +1,30 @@
+{
+ "cases": [
+  {
+   "slug": "fade-out",
+   "kind": "original",
+   "title": "Fade Out",
+   "author": "Ivan & Claude",
+   "difficulty": "Veteran",
+   "modes": [
+    "Classic"
+   ],
+   "blurb": "Hollywood, 1946. Movie star Rex Calloway is found shot in his convertible below the Hollywoodland Sign, his famous face gone. His wife identified him in under a minute. The studio wants it called an accident.",
+   "data": "cases/originals/fade-out.json",
+   "cover": "cases/originals/fade-out.jpg"
+  },
+  {
+   "slug": "the-last-encore",
+   "kind": "original",
+   "title": "The Last Encore",
+   "author": "Ivan & Claude",
+   "difficulty": "Gumshoe",
+   "modes": [
+    "Classic"
+   ],
+   "blurb": "A trumpet player is found dead in his hotel room next to an empty bottle of sleeping pills. The coroner says sleeping pills don't do that. A short case that shows every part of the system.",
+   "data": "cases/originals/the-last-encore.json",
+   "cover": "cases/originals/the-last-encore.jpg"
+  }
+ ]
+}
