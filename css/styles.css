@@ -323,3 +323,11 @@ ul.dl li { padding: .3rem 0; border-bottom: 1px dashed var(--line); font-size: .
 .spoiltag { font: 600 .6rem var(--label); letter-spacing: .1em; text-transform: uppercase; background: var(--red); color: #fff; border-radius: 3px; padding: .05rem .35rem; white-space: nowrap; }
 @media (max-width: 480px) { .libcard { grid-template-columns: 90px minmax(0, 1fr); } }
 .spoiltag.solo { background: var(--accent); color: var(--accent-ink); }
+.status { display: inline-block; font: 600 .64rem var(--label); letter-spacing: .1em; text-transform: uppercase; padding: .12rem .45rem; border-radius: 3px; margin: .25rem 0 0; }
+.status-untested { background: color-mix(in srgb, var(--warn) 22%, transparent); color: var(--warn); }
+.status-playtested { background: color-mix(in srgb, var(--ok) 20%, transparent); color: var(--ok); }
+details.focus { border: 1px solid var(--line); border-radius: 6px; padding: .35rem .6rem; margin: .5rem 0; background: var(--panel2); font-size: .9rem; }
+details.focus summary { cursor: pointer; }
+details.focus ol, details.focus ul { margin: .4rem 0 .2rem; padding-left: 1.2rem; }
+details.focus li { margin: .25rem 0; }
+label.f.inline { display: inline-block; min-width: 14rem; margin: .2rem 0 .8rem; }

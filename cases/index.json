@@ -11,7 +11,30 @@
    ],
    "blurb": "Hollywood, 1946. Movie star Rex Calloway is found shot in his convertible below the Hollywoodland Sign, his famous face gone. His wife identified him in under a minute. The studio wants it called an accident.",
    "data": "cases/originals/fade-out.json",
-   "cover": "cases/originals/fade-out.jpg"
+   "cover": "cases/originals/fade-out.jpg",
+   "version": "1.0",
+   "changes": [],
+   "playtests": [],
+   "testNotes": [
+    "Briefing: was it clear where to start, and which leads felt most urgent?",
+    "Pacing: on which day did your group make its first real breakthrough?",
+    "Movement: did you spend more actions travelling than asking questions?",
+    "Search cards: did any search feel like a wasted action?",
+    "Responses: were any answers confusing, or unclear about what to do next?",
+    "Solve tokens: on which day did someone first use one, and were they right?",
+    "Epilogue: did it explain everything, or leave you with \"huh?\" moments?",
+    "Difficulty: does Veteran feel right?"
+   ],
+   "chiselNotes": [
+    "The twist: on which day did the detectives suspect the dead man was not Rex? Which clue did it: Nick's alibi, the coroner's report or the usher at Grauman's (25)?",
+    "Rex: on which day was he found at the Chateau Marmont (26), and through which route: the search of Hask or Lila Moss at (38)?",
+    "Mystery card 1: did placing it over Case card A confuse anyone when they asked about card A afterwards?",
+    "Ruby: did the postcard (card I, face up) point at her too early, or did the other suspects keep her in doubt?",
+    "The weapon: on which day was the .38 found at Sunset Pier (15)? Did anyone use the \"no shell casings, so a revolver\" clue?",
+    "Nick's alibi (\"at my tables till one\"): too big a giveaway, or overlooked?",
+    "Lies: which ones did you use most? Was there a moment you wanted a lie that wasn't there? Note the suspect and card.",
+    "Wrong guesses: did anyone accuse Rex, Nick, Margo or Hask, and why?"
+   ]
   },
   {
    "slug": "the-last-encore",
@@ -24,7 +47,25 @@
    ],
    "blurb": "A trumpet player is found dead in his hotel room next to an empty bottle of sleeping pills. The coroner says sleeping pills don't do that. A short case that shows every part of the system.",
    "data": "cases/originals/the-last-encore.json",
-   "cover": "cases/originals/the-last-encore.jpg"
+   "cover": "cases/originals/the-last-encore.jpg",
+   "version": "1.0",
+   "changes": [],
+   "playtests": [],
+   "testNotes": [
+    "New players: is this a good first case? Which rules did you have to look up?",
+    "Length: how many days did it take, and did it feel too short?",
+    "Briefing: was it clear where to start?",
+    "Responses: were any answers confusing?",
+    "Epilogue: did it explain everything?"
+   ],
+   "chiselNotes": [
+    "Dr. Pike: on which day was he found, and how: the pill bottle at the crime scene (32), Vera's lie or Moretti?",
+    "Pike's office (48): once players knew about it, was the rat poison too easy to reach?",
+    "Vera's chloroform: did it work as a red herring?",
+    "Three suspects: did you have enough lies to play with, and which suspect needs more?",
+    "Solve: was the case solved too early? Note the day."
+   ]
   }
- ]
+ ],
+ "playtestsNeeded": 3
 }

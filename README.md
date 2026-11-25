@@ -8,6 +8,16 @@ Live site: https://detective.skirmishgames.app
 
 The Case files tab lists cases ready to print and play: Case Builder originals by Ivan & Claude (print PDF made in the browser, or open a copy to edit), and fan cases packaged as PDFs and credited to their authors once each author has agreed. Files that give the game away are marked "Chisel only"; Sleuth-mode files are marked "Solo player only". The list lives in `cases/index.json`; originals are backup files in `cases/originals/`, fan PDFs go in `cases/fan/` (ignored by git until an author agrees; remove that line from `.gitignore` to publish).
 
+Originals carry a playtest status. A case shows "Needs playtest" until it has 3 logged playtests, then "Playtested". Each one lists what detectives should pay attention to, a separate spoiler list for the Chisel, its changes, and a Send feedback button that opens a pre-filled email.
+
+To log a playtest, add an entry to that case's `playtests` list in `cases/index.json`:
+
+```json
+{ "date": "2026-12-01", "version": "1.0", "players": "Chisel and 3 detectives", "time": "2 hours", "result": "Solved on day 4, motive wrong", "notes": "Short summary of the feedback." }
+```
+
+When feedback changes the case, raise `version`, add a line to `changes`, and update the case file in `cases/originals/`.
+
 My cases holds the cases you write yourself, saved in your browser.
 
 The Guide tab covers the case design process in ten steps, summarised from the official Case Design Guide.

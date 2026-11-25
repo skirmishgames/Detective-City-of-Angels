@@ -188,7 +188,14 @@ async function openCase(c) {
 // ---------- case files (published library) ----------
 let library = null;
 async function loadLibrary() {
-  if (!library) library = fetch('cases/index.json', { cache: 'no-cache' }).then(r => r.json()).then(j => j.cases);
+  if (!library) library = fetch('cases/index.json', { cache: 'no-cache' }).then(r => r.json()).then(j => {
+    const need = j.playtestsNeeded || 3;
+    for (const x of j.cases) {
+      if (Array.isArray(x.playtests)) x.status = x.playtests.length >= need ? 'playtested' : 'untested';
+      x.need = need;
+    }
+    return j.cases;
+  });
   return library;
 }
 const caseData = new Map();
@@ -196,13 +203,36 @@ async function loadLibraryCase(entry) {
   if (!caseData.has(entry.slug)) caseData.set(entry.slug, fetch(entry.data, { cache: 'no-cache' }).then(r => r.json()));
   return caseData.get(entry.slug);
 }
-let libFilter = 'all';
+let libFilter = 'all', libStatus = '';
+const STATUS = {
+  untested: { label: 'Needs playtest', note: 'Fewer than 3 playtests so far. Responses and clues may change after feedback.' },
+  playtested: { label: 'Playtested', note: 'Played at least 3 times and adjusted after feedback.' },
+};
+function feedbackMail(x) {
+  const body = [
+    'Case: ' + x.title + ' (version ' + x.version + ')',
+    'Number of detectives:',
+    'Mode (Chisel and detectives, head to head, or Sleuth solo):',
+    'Playing time:',
+    'Days used:',
+    'Result (who solved it, on which day, and was the suspect, weapon and motive right?):',
+    'When were Solve tokens used?',
+    '',
+    'FOR EVERYONE',
+    ...(x.testNotes || []).map((t, k) => `${k + 1}. ${t}\nAnswer:\n`),
+    'FOR THE CHISEL (spoilers)',
+    ...(x.chiselNotes || []).map((t, k) => `C${k + 1}. ${t}\nAnswer:\n`),
+    'Anything else:',
+  ].join('\n');
+  return `mailto:skirmishgames.app@gmail.com?subject=${encodeURIComponent(`Playtest: ${x.title} v${x.version}`)}&body=${encodeURIComponent(body)}`;
+}
 async function filesView() {
   view.innerHTML = '<p class="progress">Opening the files ...</p>';
   let list;
   try { list = await loadLibrary(); } catch { view.innerHTML = '<div class="panel empty">Could not load the case files.</div>'; return; }
   if (state.tab !== 'files') return;
-  const shown = list.filter(x => libFilter === 'all' || x.kind === libFilter);
+  const shown = list.filter(x => (libFilter === 'all' || x.kind === libFilter) && (!libStatus || x.status === libStatus));
+  const nStatus = k => list.filter(x => (libFilter === 'all' || x.kind === libFilter) && (!k || x.status === k)).length;
   const byslug = Object.fromEntries(list.map(x => [x.slug, x]));
   const card = x => `<article class="libcard" id="lib-${x.slug}">
     <img class="cover" loading="lazy" src="${esc(x.cover)}" alt="Briefing for ${esc(x.title)}">
@@ -210,7 +240,8 @@ async function filesView() {
       <div class="libkind ${x.kind}">${x.kind === 'original' ? 'Case Builder original' : 'Fan case'}</div>
       <h3>${esc(x.title)}</h3>
       <div class="by">by ${x.authorUrl ? `<a href="${esc(x.authorUrl)}" rel="noopener">${esc(x.author)}</a>` : esc(x.author)}</div>
-      <div class="tags">${x.difficulty ? `<span>${esc(x.difficulty)}</span>` : ''}${x.modes.map(m => `<span>${esc(m)}${m === 'Sleuth' ? ' (solo)' : ''}</span>`).join('')}</div>
+      ${x.status ? `<span class="status status-${x.status}" title="${esc(STATUS[x.status].note)}">${STATUS[x.status].label}</span>` : ''}
+      <div class="tags">${x.difficulty ? `<span>${esc(x.difficulty)}</span>` : ''}${x.version ? `<span>Version ${esc(x.version)}</span>` : ''}${x.modes.map(m => `<span>${esc(m)}${m === 'Sleuth' ? ' (solo)' : ''}</span>`).join('')}</div>
       <p>${esc(x.blurb)}</p>
       ${x.requires ? `<p class="small"><strong>Needs:</strong> <a href="#/files" data-act="libjump" data-slug="${x.requires}">${esc(byslug[x.requires]?.title || x.requires)}</a></p>` : ''}
       ${x.kind === 'original' ? `<div class="btns">
@@ -218,17 +249,25 @@ async function filesView() {
           <button class="btn small ghost spoil" data-act="libdoc" data-doc="grid" data-slug="${x.slug}">Chisel grid</button>
           <button class="btn small ghost spoil" data-act="libdoc" data-doc="epilogue" data-slug="${x.slug}">Epilogue</button>
           <button class="btn small ghost" data-act="libcopy" data-slug="${x.slug}">Open a copy to edit</button>
-        </div><div class="progress" id="libprog-${x.slug}"></div>`
+          ${x.status ? `<a class="btn small" href="${feedbackMail(x)}">Send feedback</a>` : ''}
+        </div><div class="progress" id="libprog-${x.slug}"></div>
+        ${x.status === 'untested' && x.testNotes?.length ? `<details class="focus"><summary><strong>What to pay attention to (${x.testNotes.length})</strong></summary><ol>${x.testNotes.map(t => `<li>${esc(t)}</li>`).join('')}</ol></details>` : ''}
+        ${x.status === 'untested' && x.chiselNotes?.length ? `<details class="focus chisel"><summary><strong>For the Chisel (${x.chiselNotes.length})</strong> <span class="spoiltag">Spoilers</span></summary><ol>${x.chiselNotes.map(t => `<li>${esc(t)}</li>`).join('')}</ol></details>` : ''}
+        ${x.changes?.length ? `<details class="focus"><summary><strong>Changes (${x.changes.length})</strong></summary><ul>${x.changes.map(t => `<li>${esc(t)}</li>`).join('')}</ul></details>` : ''}
+        ${x.status ? `<p class="muted small">${x.playtests.length >= x.need ? `Playtested ${x.playtests.length} times.` : `Playtests: ${x.playtests.length} of ${x.need}. It counts as playtested after ${x.need}.`}</p>` : ''}`
       : `<ul class="dl">${x.downloads.map(d => `<li><a href="${esc(d.file)}" download>${esc(d.label)}</a> <span class="muted small">PDF, ${d.pages} page${d.pages > 1 ? 's' : ''}, ${d.mb} MB</span>${d.spoiler === 'solo' ? ' <span class="spoiltag solo">Solo player only</span>' : d.spoiler ? ' <span class="spoiltag">Chisel only</span>' : ''}${d.note ? ` <span class="small muted">${esc(d.note)}</span>` : ''}</li>`).join('')}</ul>
         ${x.source ? `<p class="small"><a href="${esc(x.source)}" rel="noopener">Author's own download page</a> may have newer versions.</p>` : ''}`}
     </div></article>`;
+  const statusFilter = list.some(x => x.status) ? `<label class="f inline"><span>Status</span><select id="libStatus"><option value="">Any (${nStatus('')})</option>${Object.entries(STATUS).map(([k, v]) => `<option value="${k}"${libStatus === k ? ' selected' : ''}>${v.label} (${nStatus(k)})</option>`).join('')}</select></label>` : '';
   view.innerHTML = `<h1>Case files</h1>
     <p class="muted">Cases ready to print and play. Downloads marked <span class="spoiltag">Chisel only</span> give the game away, so only the Chisel should open them. Print card sheets at 100% (actual size).</p>
+    <p class="muted">A case is marked <strong>Playtested</strong> after 3 playtests. Until then it shows <strong>Needs playtest</strong>: play it, check what to pay attention to, then use <strong>Send feedback</strong> so it can be tuned. Detectives can read their list before playing; the Chisel list has spoilers.</p>
+    ${statusFilter}
     ${new Set(list.map(x => x.kind)).size > 1 ? `<div class="chips" style="margin:.6rem 0 1rem">${[['all', 'All cases'], ['original', 'Case Builder originals'], ['fan', 'Fan cases']].map(([k, l]) => `<button class="chip${libFilter === k ? ' on' : ''}" data-act="libfilter" data-k="${k}">${l}</button>`).join('')}</div>` : '<div style="height:.6rem"></div>'}
-    <div class="library">${shown.map(card).join('')}</div>
+    <div class="library">${shown.map(card).join('') || '<div class="panel empty">No cases match this filter.</div>'}</div>
     <div class="panel small" style="margin-top:1rem">
       ${list.some(x => x.kind === 'fan') ? '<p>Fan cases are credited to their authors and shared here with their permission. They are free and may not be sold. Authors who would like their case updated or removed can write to <a href="mailto:skirmishgames.app@gmail.com">skirmishgames.app@gmail.com</a>.</p>' : ''}
-      <p>Made a case of your own? Build it in <a href="#/cases">My cases</a>, then send the backup file to the same address to have it considered for this page.</p>
+      <p>Made a case of your own? Build it in <a href="#/cases">My cases</a>, then send the backup file to <a href="mailto:skirmishgames.app@gmail.com">skirmishgames.app@gmail.com</a> to have it considered for this page.</p>
     </div>`;
 }
 
@@ -882,6 +921,7 @@ view.addEventListener('input', e => {
 });
 view.addEventListener('change', e => {
   const el = e.target;
+  if (el.id === 'libStatus') { libStatus = el.value; filesView(); return; }
   if (el.id === 'pPaper' || el.id === 'pMarks' || el.id === 'pBacks') {
     const o = { paper: $('#pPaper').value, cropMarks: $('#pMarks').checked, backs: $('#pBacks').checked };
     try { localStorage.setItem('dcoa-print', JSON.stringify(o)); } catch { /* ignore */ }
