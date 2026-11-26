@@ -1,8 +1,8 @@
 // Canvas renderers for every printed component. Sizes are print pixels.
-import { imageURL } from './store.js?v=202611251503';
+import { imageURL } from './store.js?v=202611261402';
 import {
   LETTERS, frameOf, cardByLetter, assignCodes, searchInstruction, searchTitle, lookLine, CARD_TYPES, locName,
-} from './model.js?v=202611251503';
+} from './model.js?v=202611261402';
 
 export const SIZES = {
   case: { w: 750, h: 1165, mmW: 57.15, mmH: 88.9 },      // 2.25 x 3.5 in

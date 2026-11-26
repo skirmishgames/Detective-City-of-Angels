@@ -24,6 +24,8 @@ Play also has Sleuth mode, the game's official no-Chisel rules, for solo or coop
 
 My cases holds the cases you write yourself, saved in your browser.
 
+The Submit page explains how to send a case for the Case files: what is accepted, how to make a backup file, and a pre-filled email template. The Submit button on each case in My cases saves the backup and opens the email in one step. To add a submitted case, restore the backup in My cases, check and play it, then copy the backup into `cases/originals/` (or a new folder) and add an entry with the author's name to `cases/index.json`.
+
 The Guide tab covers the case design process in ten steps, summarised from the official Case Design Guide.
 
 The Build tab has one step per part of a case:

@@ -403,3 +403,5 @@ ul.pread { list-style: none; padding: 0; }
 ul.pread li { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: .55rem .75rem; margin: .5rem 0; }
 ul.pread .pk { font: 600 .66rem var(--label); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
 ul.pread .ptxt { font-family: var(--type); }
+ol.steps-list li { margin: .55rem 0; }
+.panel.folder { margin-top: 1.7rem; }

@@ -1,21 +1,21 @@
 // Case Builder app: views, forms and actions.
-import { LOCATIONS, DISTRICTS, MOTIVES } from './data/locations.js?v=202611251503';
-import { KIT_ART } from './data/kit.js?v=202611251503';
-import { GUIDE } from './guide.js?v=202611251503';
+import { LOCATIONS, DISTRICTS, MOTIVES } from './data/locations.js?v=202611261402';
+import { KIT_ART } from './data/kit.js?v=202611261402';
+import { GUIDE } from './guide.js?v=202611261402';
 import {
   LETTERS, CARD_TYPES, MAX_CASE_CARDS, MAX_MYSTERY, newCase, newCard, newSearch, newMystery, newResponse,
   suspects, cardName, letterOf, frameOf, cellResponses, setCell, orderedCell, assignCodes, allResponses,
   searchTitle, searchInstruction, lookLine, locName, locLabel, locRefs, getPath, setPath, wordCount, uid, migrate, sleuthResponse,
-} from './model.js?v=202611251503';
-import * as store from './store.js?v=202611251503';
+} from './model.js?v=202611261402';
+import * as store from './store.js?v=202611261402';
 import {
   fontsReady, kitThumb, renderCaseCard, renderCaseBack, renderMysteryFront, renderMysteryBack,
   renderSearchFront, renderSearchBack, renderResponseCard, renderBriefing, responseCards,
-} from './render.js?v=202611251503';
-import { runChecks, districtsUsed, placeNumbers } from './checks.js?v=202611251503';
-import { buildPDF, PARTS } from './print.js?v=202611251503';
-import { demoCase } from './data/demo.js?v=202611251503';
-import { playView } from './play.js?v=202611251503';
+} from './render.js?v=202611261402';
+import { runChecks, districtsUsed, placeNumbers } from './checks.js?v=202611261402';
+import { buildPDF, PARTS } from './print.js?v=202611261402';
+import { demoCase } from './data/demo.js?v=202611261402';
+import { playView } from './play.js?v=202611261402';
 
 const $ = (s, el = document) => el.querySelector(s);
 const $$ = (s, el = document) => [...el.querySelectorAll(s)];
@@ -112,7 +112,7 @@ function parseHash() {
 }
 async function route() {
   const { tab, sub, rest } = parseHash();
-  state.tab = ['guide', 'files', 'play', 'cases', 'build', 'print', 'about'].includes(tab) ? tab : 'guide';
+  state.tab = ['guide', 'files', 'play', 'cases', 'build', 'print', 'submit', 'about'].includes(tab) ? tab : 'guide';
   state.playParts = rest;
   if (state.tab === 'build' && sub) state.step = STEPS.some(s => s[0] === sub) ? sub : 'story';
   $$('#tabs a').forEach(a => a.classList.toggle('on', a.dataset.tab === state.tab));
@@ -128,6 +128,7 @@ function render() {
   else if (t === 'files') filesView();
   else if (t === 'play') playView(view, state.playParts || []);
   else if (t === 'about') view.innerHTML = aboutView();
+  else if (t === 'submit') submitView();
   else if (!state.c) view.innerHTML = noCaseView();
   else if (t === 'print') view.innerHTML = printView();
   else view.innerHTML = buildView();
@@ -174,6 +175,7 @@ async function casesView() {
       <a class="btn small red" href="#/play/my/${c.id}">Play</a>
       <button class="btn small ghost" data-act="export" data-id="${c.id}">Back up</button>
       <button class="btn small ghost" data-act="dupe" data-id="${c.id}">Duplicate</button>
+      <button class="btn small ghost" data-act="submitcase" data-id="${c.id}">Submit</button>
       <button class="btn small ghost" data-act="del" data-id="${c.id}">Delete</button>
     </div></div>`).join('')}</div>` : '<div class="panel empty">No cases yet. Start a new one or load the example case to see how it works.</div>'}`;
 }
@@ -272,8 +274,78 @@ async function filesView() {
     <div class="library">${shown.map(card).join('') || '<div class="panel empty">No cases match this filter.</div>'}</div>
     <div class="panel small" style="margin-top:1rem">
       ${list.some(x => x.kind === 'fan') ? '<p>Fan cases are credited to their authors and shared here with their permission. They are free and may not be sold. Authors who would like their case updated or removed can write to <a href="mailto:skirmishgames.app@gmail.com">skirmishgames.app@gmail.com</a>.</p>' : ''}
-      <p>Made a case of your own? Build it in <a href="#/cases">My cases</a>, then send the backup file to <a href="mailto:skirmishgames.app@gmail.com">skirmishgames.app@gmail.com</a> to have it considered for this page.</p>
+      <p>Made a case of your own? <a href="#/submit">Submit it to the Case files</a>.</p>
     </div>`;
+}
+
+
+// ---------- submit a case ----------
+const SUBMIT_TO = 'skirmishgames.app@gmail.com';
+function submitMail(c) {
+  const sus = c ? suspects(c).length : '';
+  const body = [
+    'Case title: ' + (c?.title || ''),
+    'Author name to credit: ' + (c?.author || ''),
+    'Link to credit (optional, BGG or website):',
+    'Difficulty (Gumshoe, Veteran or Hardboiled): ' + (c?.difficulty || ''),
+    c ? `Size: ${c.cards.length} Case cards, ${sus} suspects, ${allResponses(c).length} responses, ${c.search.length} Search cards` : 'Size:',
+    '',
+    'Spoiler-free summary (2 or 3 sentences for the case list):',
+    '',
+    'Playtests so far (how many, how many players, Chisel or Sleuth mode):',
+    '',
+    'What should playtesters pay attention to? (spoiler-free)',
+    '',
+    'Anything only the Chisel should watch for? (spoilers are fine here)',
+    '',
+    'Pictures: where did any uploaded pictures come from? (your own, public domain, or another source with its licence)',
+    '',
+    'I confirm that:',
+    '- I wrote this case, or I have the author\'s permission to send it.',
+    '- It can be published free on detective.skirmishgames.app, credited to the name above.',
+    '- It will never be sold, and it may be edited for layout and typos.',
+    '',
+    'The backup file is attached: ' + (c ? `${slug(c.title)}-backup.json` : '(attach your .json backup file)'),
+  ].join('\n');
+  return `mailto:${SUBMIT_TO}?subject=${encodeURIComponent('Case submission: ' + (c?.title || 'your case title'))}&body=${encodeURIComponent(body)}`;
+}
+async function submitView() {
+  const mine = await store.listCases();
+  view.innerHTML = `<h1>Submit a case</h1>
+  <p class="muted">Written a case you're proud of? Send it in and it may be added to the <a href="#/files">Case files</a> for everyone to print and play, credited to you.</p>
+  <div class="panel folder" data-tab="Before you send">
+    <h2>What we're looking for</h2>
+    <ul>
+      <li><strong>Your own original case.</strong> Not a copy or rewrite of a published case.</li>
+      <li><strong>Built in this tool.</strong> We need the backup file to add it to the site. Cases made as image or PDF sheets can't be imported.</li>
+      <li><strong>Complete:</strong> every suspect has a most useful response for every Case card, there's a briefing and an epilogue, and the <a href="#/build/checks">Checks</a> page shows no errors.</li>
+      <li><strong>Played at least once</strong>, ideally. It will be listed as Needs playtest until 3 playtests are logged.</li>
+      <li><strong>Pictures you're allowed to share:</strong> the kit art, your own photos or drawings, or public-domain images. No characters or logos from films, cartoons or other games.</li>
+      <li><strong>Free forever.</strong> Fan cases can't be sold.</li>
+    </ul>
+  </div>
+  <div class="panel"><h2>How to send it</h2>
+    <ol class="steps-list">
+      <li><strong>Make a backup file.</strong> Go to <a href="#/cases">My cases</a> and press <em>Back up</em> on your case, or <em>Download backup</em> on the Print page. Your browser saves a file ending in <code>-backup.json</code>, usually in Downloads. It holds the whole case, pictures included.</li>
+      <li><strong>Open the email template.</strong> Press <em>Submit</em> on your case in My cases (it saves the backup and opens the email in one go), or use the button below.</li>
+      <li><strong>Fill in the template</strong> and <strong>attach the backup file</strong>. Email links can't attach files for you, so add it yourself before sending.</li>
+      <li><strong>Send it</strong> to <a href="mailto:${SUBMIT_TO}">${SUBMIT_TO}</a>.</li>
+    </ol>
+    <div class="btns">
+      ${mine.length ? `<label class="f inline"><span>Your case</span><select id="subCase">${mine.map(c => `<option value="${c.id}"${state.c?.id === c.id ? ' selected' : ''}>${esc(c.title || 'Untitled case')}</option>`).join('')}</select></label>
+        <div style="align-self:end"><button class="btn" data-act="submitcase" data-from="select">Save backup and open email</button></div>` : ''}
+      <div style="align-self:end"><a class="btn ghost" href="${submitMail(null)}">Open a blank email template</a></div>
+    </div>
+    <p class="hint">On a phone or tablet the backup may save to Files. Attach it from there.</p>
+  </div>
+  <div class="panel"><h2>What happens next</h2>
+    <ol>
+      <li>We restore your backup, run the checks and play it.</li>
+      <li>If something needs fixing, we'll write back with suggestions. Small layout and typo fixes we may just make.</li>
+      <li>Once it's ready, it goes on the Case files page with your name, marked Needs playtest, with a feedback button so players can report back.</li>
+      <li>Want it updated or taken down later? Email us and we'll do it.</li>
+    </ol>
+  </div>`;
 }
 
 // ---------- build ----------
@@ -712,6 +784,16 @@ function moveIn(arr, id, dir) {
 }
 
 const ACTIONS = {
+  async submitcase(el) {
+    const id = el.dataset.from === 'select' ? $('#subCase').value : el.dataset.id;
+    const c = id === state.c?.id ? state.c : await store.getCase(id);
+    const issues = runChecks(c).filter(x => x.level === 'error');
+    if (issues.length && !confirm(`The checks found ${issues.length} error${issues.length > 1 ? 's' : ''} in this case. Send it anyway?`)) return;
+    const data = await store.exportCase(c);
+    download(`${slug(c.title)}-backup.json`, JSON.stringify(data));
+    toast('Backup saved. Attach it to the email before sending.', 5000);
+    setTimeout(() => { location.href = submitMail(c); }, 600);
+  },
   libfilter(el) { libFilter = el.dataset.k; filesView(); },
   libjump(el) { libFilter = 'all'; filesView().then(() => document.getElementById('lib-' + el.dataset.slug)?.scrollIntoView({ behavior: 'smooth' })); },
   async libpdf(el) {

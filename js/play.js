@@ -2,12 +2,12 @@
 import {
   LETTERS, CARD_TYPES, suspects, cardName, letterOf, cellResponses, orderedCell, searchTitle, searchInstruction,
   lookLine, locName, migrate, sleuthResponse,
-} from './model.js?v=202611251503';
+} from './model.js?v=202611261402';
 import {
   fontsReady, renderCaseCard, renderCaseBack, renderMysteryFront, renderMysteryBack, renderSearchFront,
-} from './render.js?v=202611251503';
-import * as store from './store.js?v=202611251503';
-import { LOCATIONS, MOTIVES } from './data/locations.js?v=202611251503';
+} from './render.js?v=202611261402';
+import * as store from './store.js?v=202611261402';
+import { LOCATIONS, MOTIVES } from './data/locations.js?v=202611261402';
 
 const esc = s => String(s ?? '').replace(/[&<>"']/g, ch => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[ch]));
 const $ = (s, el = document) => el.querySelector(s);
