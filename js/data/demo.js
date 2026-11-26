@@ -1,5 +1,5 @@
 // A short example case, written for this tool. Shows every part of a case.
-import { newCase, newCard, newSearch, newResponse, uid } from '../model.js?v=202611261402';
+import { newCase, newCard, newSearch, newResponse, uid } from '../model.js?v=202611261456';
 
 export function demoCase() {
   const c = newCase('The Last Encore');

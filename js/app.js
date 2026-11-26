@@ -1,21 +1,21 @@
 // Case Builder app: views, forms and actions.
-import { LOCATIONS, DISTRICTS, MOTIVES } from './data/locations.js?v=202611261402';
-import { KIT_ART } from './data/kit.js?v=202611261402';
-import { GUIDE } from './guide.js?v=202611261402';
+import { LOCATIONS, DISTRICTS, MOTIVES } from './data/locations.js?v=202611261456';
+import { KIT_ART } from './data/kit.js?v=202611261456';
+import { GUIDE } from './guide.js?v=202611261456';
 import {
   LETTERS, CARD_TYPES, MAX_CASE_CARDS, MAX_MYSTERY, newCase, newCard, newSearch, newMystery, newResponse,
   suspects, cardName, letterOf, frameOf, cellResponses, setCell, orderedCell, assignCodes, allResponses,
   searchTitle, searchInstruction, lookLine, locName, locLabel, locRefs, getPath, setPath, wordCount, uid, migrate, sleuthResponse,
-} from './model.js?v=202611261402';
-import * as store from './store.js?v=202611261402';
+} from './model.js?v=202611261456';
+import * as store from './store.js?v=202611261456';
 import {
   fontsReady, kitThumb, renderCaseCard, renderCaseBack, renderMysteryFront, renderMysteryBack,
   renderSearchFront, renderSearchBack, renderResponseCard, renderBriefing, responseCards,
-} from './render.js?v=202611261402';
-import { runChecks, districtsUsed, placeNumbers } from './checks.js?v=202611261402';
-import { buildPDF, PARTS } from './print.js?v=202611261402';
-import { demoCase } from './data/demo.js?v=202611261402';
-import { playView } from './play.js?v=202611261402';
+} from './render.js?v=202611261456';
+import { runChecks, districtsUsed, placeNumbers } from './checks.js?v=202611261456';
+import { buildPDF, PARTS } from './print.js?v=202611261456';
+import { demoCase } from './data/demo.js?v=202611261456';
+import { playView } from './play.js?v=202611261456';
 
 const $ = (s, el = document) => el.querySelector(s);
 const $$ = (s, el = document) => [...el.querySelectorAll(s)];
@@ -312,12 +312,12 @@ function submitMail(c) {
 async function submitView() {
   const mine = await store.listCases();
   view.innerHTML = `<h1>Submit a case</h1>
-  <p class="muted">Written a case you're proud of? Send it in and it may be added to the <a href="#/files">Case files</a> for everyone to print and play, credited to you.</p>
+  <p class="muted">Written a case you're proud of? Send it to me and it may be added to the <a href="#/files">Case files</a> for everyone to print and play, credited to you.</p>
   <div class="panel folder" data-tab="Before you send">
-    <h2>What we're looking for</h2>
+    <h2>What I'm looking for</h2>
     <ul>
       <li><strong>Your own original case.</strong> Not a copy or rewrite of a published case.</li>
-      <li><strong>Built in this tool.</strong> We need the backup file to add it to the site. Cases made as image or PDF sheets can't be imported.</li>
+      <li><strong>Built in this tool.</strong> I need the backup file to add it to the site. Cases made as image or PDF sheets can't be imported.</li>
       <li><strong>Complete:</strong> every suspect has a most useful response for every Case card, there's a briefing and an epilogue, and the <a href="#/build/checks">Checks</a> page shows no errors.</li>
       <li><strong>Played at least once</strong>, ideally. It will be listed as Needs playtest until 3 playtests are logged.</li>
       <li><strong>Pictures you're allowed to share:</strong> the kit art, your own photos or drawings, or public-domain images. No characters or logos from films, cartoons or other games.</li>
@@ -340,10 +340,10 @@ async function submitView() {
   </div>
   <div class="panel"><h2>What happens next</h2>
     <ol>
-      <li>We restore your backup, run the checks and play it.</li>
-      <li>If something needs fixing, we'll write back with suggestions. Small layout and typo fixes we may just make.</li>
+      <li>I restore your backup, run the checks and play it.</li>
+      <li>If something needs fixing, I'll write back with suggestions. Small layout and typo fixes I may just make.</li>
       <li>Once it's ready, it goes on the Case files page with your name, marked Needs playtest, with a feedback button so players can report back.</li>
-      <li>Want it updated or taken down later? Email us and we'll do it.</li>
+      <li>Want it updated or taken down later? Email me and I'll do it.</li>
     </ol>
   </div>`;
 }

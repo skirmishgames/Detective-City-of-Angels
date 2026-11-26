@@ -2,8 +2,8 @@
 import {
   SIZES, renderCaseCard, renderCaseBack, renderMysteryFront, renderMysteryBack,
   renderSearchFront, renderSearchBack, renderResponseCard, renderBriefing, responseCards, fontsReady,
-} from './render.js?v=202611261402';
-import { LETTERS } from './model.js?v=202611261402';
+} from './render.js?v=202611261456';
+import { LETTERS } from './model.js?v=202611261456';
 
 const PAPER = { letter: [215.9, 279.4], a4: [210, 297] };
 

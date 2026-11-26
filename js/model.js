@@ -1,5 +1,5 @@
 // Case data model, letters, response codes and text helpers.
-import { LOCATIONS } from './data/locations.js?v=202611261402';
+import { LOCATIONS } from './data/locations.js?v=202611261456';
 
 export const LETTERS = 'ABCDEFGHIJKL'.split('');
 export const MAX_CASE_CARDS = 12;
